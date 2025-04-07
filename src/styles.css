@@ -1,1 +1,216 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-Light-300.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-Regular-400.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-Medium-500.ttf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-SemiBold-600.ttf');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-Bold-700.ttf');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-ExtraBold-800.ttf');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-Black-900.ttf');
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/assets/fonts/inter/Inter-Black-900.ttf');
+    font-weight: 900;
+}
+
+@font-face {
+    font-family: 'Unigeo';
+    src: url('/assets/fonts/unigeo/unigeo64-light-300.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Unigeo';
+    src: url('/assets/fonts/unigeo/unigeo64-regular-400.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Unigeo';
+    src: url('/assets/fonts/unigeo/unigeo64-medium-500.ttf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Unigeo';
+    src: url('/assets/fonts/unigeo/unigeo64-semibold-600.ttf');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Unigeo';
+    src: url('/assets/fonts/unigeo/unigeo64-bold-700.ttf');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Unigeo';
+    src: url('/assets/fonts/unigeo/unigeo64-extrabold-800.ttf');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat/montserrat-light-300.ttf');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat/montserrat-regular-400.ttf');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat/montserrat-medium-500.ttf');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat/montserrat-semibold-600.ttf');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat/montserrat-bold-700.ttf');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat/montserrat-extrabold-800.ttf');
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/assets/fonts/montserrat/montserrat-black-900.ttf');
+    font-weight: 900;
+}
+
+:root{
+    --max-w: 90%;
+    --max-w-1536: 1536px;
+    --primary-color: #030303;
+}
+
+*{
+    font-family: 'Unigeo';
+    box-sizing: border-box;
+    /* scroll-behavior: smooth; */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.limited-container{
+    max-width: 95%;
+    margin: 0px auto;
+}
+
+/* xl */
+@media screen and (min-width: 1280px) {
+    .limited-container{
+        max-width: 90%;
+    }
+}
+/* 2xl */
+@media screen and (min-width: 1440px) {
+    .limited-container{
+        max-width: var(--max-w);
+    }
+}
+/* 4xl */
+@media screen and (min-width: 1600px) {
+    .limited-container{
+        max-width: 75%;
+    }
+}
+/* 5xl */
+@media screen and (min-width: 1900px) {
+  .limited-container{
+      max-width: var(--max-w-1536);
+      /* max-width: 1920px; */
+      /* max-width: 90%; */
+  }
+}
+
+.overflow-x-auto::-webkit-scrollbar,
+.no-scrollbar::-webkit-scrollbar
+{
+    display: none;
+}
+.overflow-x-auto,
+.no-scrollbar{
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.appear-softly{
+    animation: appearSoftly .5s forwards ease-in-out;
+}
+
+@keyframes appearSoftly {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: placeholderAnimation 3s infinite linear;
+}
+
+@keyframes placeholderAnimation {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+}
