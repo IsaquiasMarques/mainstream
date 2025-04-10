@@ -126,14 +126,18 @@
     font-weight: 900;
 }
 
+@theme{
+    --primary: #F20530;
+    /* text-(color:--primary) */
+}
+
 :root{
     --max-w: 90%;
     --max-w-1536: 1536px;
-    --primary-color: #030303;
 }
 
 *{
-    font-family: 'Unigeo';
+    font-family: 'Inter';
     box-sizing: border-box;
     /* scroll-behavior: smooth; */
     -webkit-tap-highlight-color: transparent;
@@ -153,19 +157,20 @@
 /* 2xl */
 @media screen and (min-width: 1440px) {
     .limited-container{
-        max-width: var(--max-w);
+        /* max-width: var(--max-w); */
+        max-width: 80%;
     }
 }
 /* 4xl */
 @media screen and (min-width: 1600px) {
     .limited-container{
-        max-width: 75%;
+        max-width: 1173px;
     }
 }
 /* 5xl */
 @media screen and (min-width: 1900px) {
   .limited-container{
-      max-width: var(--max-w-1536);
+      /* max-width: var(--max-w-1536); */
       /* max-width: 1920px; */
       /* max-width: 90%; */
   }

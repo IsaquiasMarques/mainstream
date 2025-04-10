@@ -1,9 +1,49 @@
-<header class="header-container shadow-[0px_24px_40px_0px_rgba(0,0,0,0.03)] sticky top-0 py-3">
+<header class="header-container shadow-[0px_24px_40px_0px_rgba(0,0,0,0.03)] py-3">
     <div class="content limited-container flex justify-between items-center">
         <div class="logo">
             <img src="/assets/static/logo.svg" alt="">
         </div>
-        <div class="menu-invoker h-[38px]">
+        <div class="navigation hidden xl:flex xl:justify-between xl:items-center">
+            <ul class=" flex gap-8 items-center">
+                <li>
+                    <a class="text-base font-medium -tracking-[2%] !font-['Montserrat']" [routerLink]="['']" [routerLinkActive]="''">Home</a>
+                </li>
+                <li>
+                    <a class="text-base font-medium -tracking-[2%] !font-['Montserrat']" [routerLink]="['/about-us']" [routerLinkActive]="''">Sobre Nós</a>
+                </li>
+                <li>
+                    <a class="text-base font-medium -tracking-[2%] !font-['Montserrat']" [routerLink]="['/events']" [routerLinkActive]="''">Eventos</a>
+                </li>
+                <li>
+                    <a class="text-base font-medium -tracking-[2%] !font-['Montserrat']" [routerLink]="['/faq']" [routerLinkActive]="''">FAQ</a>
+                </li>
+                <li>
+                    <a class="text-base font-medium -tracking-[2%] !font-['Montserrat']" [routerLink]="['/create-account']" [routerLinkActive]="''">Vender Tickets</a>
+                </li>
+                <li>
+                    <a class="text-base font-medium -tracking-[2%] !font-['Montserrat']" [routerLink]="['/contact-us']" [routerLinkActive]="''">Contacto</a>
+                </li>
+            </ul>
+        </div>
+        <div class="cta hidden xl:block">
+            <button class="flex gap-3 justify-start items-center !font-['Montserrat'] font-medium text-base">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_669_263)">
+                    <circle cx="15" cy="15" r="15" fill="#FFECF0"/>
+                    <path d="M8.8238 21.928C8.8078 21.928 8.8078 21.928 8.7918 21.928C8.5838 21.912 8.4398 21.736 8.4558 21.544C8.6638 18.488 11.5438 16.104 14.9998 16.104C18.4558 16.104 21.3358 18.488 21.5438 21.528C21.5598 21.736 21.3998 21.896 21.2078 21.912C20.9998 21.928 20.8398 21.768 20.8238 21.576C20.6318 18.904 18.0718 16.824 14.9998 16.824C11.9118 16.824 9.3518 18.92 9.1758 21.592C9.1598 21.784 8.9998 21.928 8.8238 21.928Z" fill="#F20530"/>
+                    <path d="M14.9996 15.368C12.9836 15.368 11.3516 13.736 11.3516 11.72C11.3516 9.70402 12.9836 8.07202 14.9996 8.07202C17.0156 8.07202 18.6476 9.70402 18.6476 11.72C18.6476 13.736 17.0156 15.368 14.9996 15.368ZM14.9996 8.80802C13.3996 8.80802 12.0876 10.12 12.0876 11.72C12.0876 13.32 13.3996 14.632 14.9996 14.632C16.5996 14.632 17.9116 13.32 17.9116 11.72C17.9116 10.12 16.5996 8.80802 14.9996 8.80802Z" fill="#F20530"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_669_263">
+                    <rect width="30" height="30" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+                Acessar conta
+            </button>
+        </div>
+
+        <div class="menu-invoker xl:hidden h-[38px]">
             <button class="">
                 <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="19" cy="19" r="18.5" stroke="#FFC4C4"/>
