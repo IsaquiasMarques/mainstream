@@ -11,7 +11,7 @@
             </div>
         </div>
 
-        <div class="events">
+        <div class="events-categories">
             <div class="categories flex flex-wrap gap-2 justify-center items-center">
                 <div class="category">
                     <a class=" text-sm !fonr-['Montserrat'] block w-fit px-7 py-3 border-[0.5px] rounded-full duration-75 border-[#020B26] text-[#020B26] hover:border-(color:--primary) hover:text-(color:--primary)" [routerLink]="['']" routerLinkActive="">
@@ -75,6 +75,20 @@
                 </div>
             </div>
             <div class="events-container"></div>
+        </div>
+
+        <div class="events-container flex flex-col flex-wrap md:flex-row gap-[30px] md:gap-4 lg:gap-[30px] justify-start items-stretch">
+            @for (event of events; track $index) {
+                <app-event
+                class="w-full md:w-[355px] lg:w-[370px] xl-1230:!w-[calc(calc(100%/3)-20px)]"
+                [event]="event"
+                />
+            }
+        </div>
+        <div class="see-more flex justify-center">
+            <button type="submit" class="text-white w-full xl:w-fit cursor-pointer font-medium rounded-lg !font-['Montserrat'] text-sm px-7 py-6 bg-(color:--primary)">
+                Ver mais Eventos
+            </button>
         </div>
     </div>
 </div>
