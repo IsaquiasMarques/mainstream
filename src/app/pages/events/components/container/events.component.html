@@ -1,0 +1,9 @@
+<div class="section-container">
+    <app-page-head [breadcrumbs]="[ { name: 'Página Inicial', route: ['/'] }, { name: 'Eventos' } ]">
+        <h1 class="!font-['Unigeo'] font-semibold text-3xl leading-[120%] tracking-[0%]">
+            Acompanhe todos os eventos que temos para si
+        </h1>
+    </app-page-head>
+    <app-search />
+    <app-events-displayer [paginated]="true" [buttonLabel]="'Carregar mais eventos'" />
+</div>

@@ -16,12 +16,17 @@ export const routes: Routes = [
         children: [
             {
                 path: '',
-                loadComponent: () => import('./pages/events/events.component').then(component => component.EventsComponent),
+                loadComponent: () => import('./pages/events/components/container/events.component').then(component => component.EventsComponent),
                 title: 'Acompanhe todos os eventos',
             },
             {
+                path: 'category/:category',
+                loadComponent: () => import('./pages/events/components/container/events.component').then(component => component.EventsComponent),
+                title: 'Acompanhe todos os eventos desta categoria',
+            },
+            {
                 path: 'details/:event',
-                loadComponent: () => import('./pages/event-details/event-details.component').then(component => component.EventDetailsComponent),
+                loadComponent: () => import('./pages/event-details/components/container/event-details.component').then(component => component.EventDetailsComponent),
                 title: 'Detalhes do evento'
             }
         ],

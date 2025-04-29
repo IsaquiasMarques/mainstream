@@ -10,12 +10,14 @@
                 <path d="M19.4576 19.3592C19.2647 19.3555 19.1114 19.1964 19.1151 19.0035L19.1257 18.4418C19.1294 18.2489 19.2885 18.0957 19.4814 18.0994C19.6743 18.103 19.8275 18.2621 19.8239 18.4551L19.8132 19.0167C19.8096 19.2096 19.6505 19.3628 19.4576 19.3592Z" fill="#F20530"/>
             </svg>
         </div>
-        <img [src]="event().image" class="w-full h-full object-cover object-center" alt="">
+        <a [routerLink]="['/events/details/' + event().slug ]">
+            <img [src]="event().image" class="w-full h-full object-cover object-center" alt="">
+        </a>
     </div>
     <div class="card-content flex flex-col gap-5">
-        <h1 class="text-(color:--secondary) font-semibold text-lg !font-['Montserrat'] leading-[120%] tracking-[-2%] line-clamp-3">
+        <a [routerLink]="['/events/details/' + event().slug ]" routerLinkActive="router-link-active"  class="text-(color:--secondary) font-semibold text-lg !font-['Montserrat'] leading-[120%] tracking-[-2%] line-clamp-3">
             {{ event().title }}
-        </h1>
+        </a>
         <div class="details flex flex-col gap-3">
             <div class="date flex gap-2 justify-start items-center">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
