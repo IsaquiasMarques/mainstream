@@ -8,7 +8,7 @@ export const routes: Routes = [
     },
     {
         path: 'about-us',
-        loadComponent: () => import('./pages/about-us/about-us.component').then(component => component.AboutUsComponent),
+        loadComponent: () => import('./pages/about-us/components/container/about-us.component').then(component => component.AboutUsComponent),
         title: 'Saiba tudo sobre nós - Mainstream',
     },
     {
@@ -33,22 +33,22 @@ export const routes: Routes = [
     },
     {
         path: 'checkout',
-        loadComponent: () => import('./pages/checkout/checkout.component').then(component => component.CheckoutComponent),
+        loadComponent: () => import('./pages/checkout/components/container/checkout.component').then(component => component.CheckoutComponent),
         title: 'Finalize a suma compra',
     },
     {
         path: 'faq',
-        loadComponent: () => import('./pages/faq/faq.component').then(component => component.FaqComponent),
+        loadComponent: () => import('./pages/faq/components/container/faq.component').then(component => component.FaqComponent),
         title: 'Perguntas frequentes'
     },
     {
         path: 'create-account',
-        loadComponent: () => import('./pages/create-account/create-account.component').then(component => component.CreateAccountComponent),
+        loadComponent: () => import('./pages/create-account/components/container/create-account.component').then(component => component.CreateAccountComponent),
         title: 'Crie a sua conta e venda connosco',
     },
     {
         path: 'contact-us',
-        loadComponent: () => import('./pages/contact-us/contact-us.component').then(component => component.ContactUsComponent),
+        loadComponent: () => import('./pages/contact-us/components/container/contact-us.component').then(component => component.ContactUsComponent),
         title: 'Entre em contacto connosco'
     }
 ];

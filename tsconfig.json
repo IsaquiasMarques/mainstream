@@ -9,7 +9,8 @@
       "@core/*": [ "src/app/core/*" ],
       "@pages/*": [ "src/app/pages/*" ],
       "@shared/*": [ "src/app/shared/*" ],
-      "@partials/*": [ "src/app/partials/*" ]
+      "@partials/*": [ "src/app/partials/*" ],
+      "@libraries/*": [ "src/app/libraries/*" ]
     },
     "strict": true,
     "noImplicitOverride": true,

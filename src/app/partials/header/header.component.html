@@ -44,14 +44,58 @@
         </div>
 
         <div class="menu-invoker xl:hidden h-[38px]">
-            <button class="">
-                <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="19" cy="19" r="18.5" stroke="#FFC4C4"/>
-                    <line x1="7.5" y1="13.5" x2="30.5" y2="13.5" stroke="#020B26" stroke-linecap="round" stroke-linejoin="round"/>
-                    <line x1="7.5" y1="19" x2="30.5" y2="19" stroke="#020B26" stroke-linecap="round" stroke-linejoin="round"/>
-                    <line x1="7.5" y1="24.5" x2="30.5" y2="24.5" stroke="#020B26" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
+            @if (!this.isMobileMenuExtended()) {
+                <button class="open" (click)="openMobileMenu()">
+                    <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="19" cy="19" r="18.5" stroke="#FFC4C4"/>
+                        <line x1="7.5" y1="13.5" x2="30.5" y2="13.5" stroke="#020B26" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="7.5" y1="19" x2="30.5" y2="19" stroke="#020B26" stroke-linecap="round" stroke-linejoin="round"/>
+                        <line x1="7.5" y1="24.5" x2="30.5" y2="24.5" stroke="#020B26" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            } @else {
+                <button class="close" (click)="closeMobileMenu()">
+                    <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="19" cy="19" r="18.5" fill="white" fill-opacity="0.3" stroke="#FFC4C4"/>
+                        <path d="M24.3557 12.5332L12.5334 24.3554" stroke="#F20530" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12.5334 12.5332L24.3557 24.3554" stroke="#F20530" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            }
         </div>
     </div>
 </header>
+<div
+[ngClass]="{
+    '!h-0': !this.isMobileMenuExtended(),
+    '!h-[100dvh]': this.isMobileMenuExtended(),
+}"
+class="mobile-dropdown duration-[.4s] overflow-hidden"
+appBodyHeightLimiter
+[hasBodyToLimit]="this.isMobileMenuExtended()"
+>
+    <div class="limited-container">
+        <div class="mobile-navigation flex flex-col xl:hidden">
+            <ul class=" my-7 flex flex-col gap-8 justify-center items-start">
+                <li>
+                    <a [routerLink]="['']" (click)="closeMobileMenu()" [routerLinkActive]="'text-(color:--primary)'" [routerLinkActiveOptions]="{ exact: true }" class="text-xl duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Home</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/about-us']" (click)="closeMobileMenu()" [routerLinkActive]="'text-(color:--primary)'" class="text-xl duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Sobre Nós</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/events']" (click)="closeMobileMenu()" [routerLinkActive]="'text-(color:--primary)'" class="text-xl duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Eventos</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/faq']" (click)="closeMobileMenu()" [routerLinkActive]="'text-(color:--primary)'" class="text-xl duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">FAQ</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/create-account']" (click)="closeMobileMenu()" [routerLinkActive]="'text-(color:--primary)'" class="text-xl duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Vender Tickets</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/contact-us']" (click)="closeMobileMenu()" [routerLinkActive]="'text-(color:--primary)'" class="text-xl duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Contacto</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
