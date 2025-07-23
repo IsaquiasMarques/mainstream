@@ -1,10 +1,11 @@
 import { Component, computed, input, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import { AoMoneyFormatPipe } from '@shared/pipes/ao-money-format.pipe';
 import { CustomNumberInputComponent } from '@shared/ui-elements/custom-number-input/custom-number-input.component';
 @Component({
   selector: 'app-tickets',
-  imports: [AoMoneyFormatPipe, FormsModule, CustomNumberInputComponent],
+  imports: [AoMoneyFormatPipe, FormsModule, CustomNumberInputComponent, RouterLink],
   template: `
     <div class="section-content">
       <div class="limited-container flex flex-col gap-7 py-16">
@@ -20,7 +21,7 @@ import { CustomNumberInputComponent } from '@shared/ui-elements/custom-number-in
               <app-custom-number-input name="quantity" [(ngModel)]="ticketsAvailableToCheckout()[$index].quantity" [min]="1" [max]="99" />
             </div>
             <div class="cta w-full min-w-[157px] lg:w-fit">
-              <button class="bg-(color:--primary) cursor-pointer text-white w-full py-4 px-7 rounded !font-['Montserrat'] text-base flex gap-4 justify-center items-center">
+              <button [routerLink]="['/checkout']"  class="bg-(color:--primary) cursor-pointer text-white w-full py-4 px-7 rounded !font-['Montserrat'] text-base flex gap-4 justify-center items-center">
                 Comprar
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <rect x="30" width="30" height="30" rx="15" transform="rotate(90 30 0)" fill="#FFECF0"/>
