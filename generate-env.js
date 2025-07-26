@@ -3,7 +3,7 @@ const path = require('path');
 
 // Caminho absoluto para a pasta e o arquivo
 const envDir = path.resolve(__dirname, 'src/environments');
-const envFile = path.join(envDir, 'environment.ts');
+const envFile = path.join(envDir, 'environment.staging.ts');
 
 // Cria a pasta caso não exista
 if (!fs.existsSync(envDir)) {
