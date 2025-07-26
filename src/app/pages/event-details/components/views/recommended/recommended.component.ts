@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Event } from '@core/models/event.model';
 import { DisplayerComponent } from '@shared/components/events/displayer/displayer.component';
 
 @Component({
   selector: 'app-recommended',
   imports: [ DisplayerComponent ],
   template: `
-    <app-events-displayer [button]="{ visible: false }" [paginated]="false" [events]="events">
-        [events]="events">
+    <app-events-displayer [isLoading]="this.isLoading()" [limit]="limit()" [button]="{ visible: false }" [paginated]="false" [events]="events()">
         <div class="section-header flex flex-col gap-[50px]" ngProjectAs="section-header">
             <div class="content flex flex-col gap-12">
                 <div class="title text-left flex flex-col items-start gap-2">
@@ -24,60 +24,7 @@ import { DisplayerComponent } from '@shared/components/events/displayer/displaye
   styles: ``
 })
 export class RecommendedComponent {
-  events: any[] = [
-    {
-      image: '/assets/images/events/event.png',
-      title: 'Mulheres e as tecnotecnologias',
-      slug: 'mulheres-e-as-tecnotecnologias',
-      category: [
-        {
-          id: 2,
-          name: 'Artes e Teatro',
-          slug: 'artes-e-teatro',
-        }
-      ],
-      date: '20 de Agosto pelas 19 horas',
-      locations: [
-        {
-          location: 'Luanda, Angola'
-        }
-      ]
-    },
-    {
-      image: '/assets/images/events/event.png',
-      title: 'Mulheres e as tecnotecnologias',
-      slug: 'mulheres-e-as-tecnotecnologias',
-      category: [
-        {
-          id: 2,
-          name: 'Artes e Teatro',
-          slug: 'artes-e-teatro',
-        }
-      ],
-      date: '20 de Agosto pelas 19 horas',
-      locations: [
-        {
-          location: 'Luanda, Angola'
-        }
-      ]
-    },
-    {
-      image: '/assets/images/events/event.png',
-      title: 'Mulheres e as tecnotecnologias',
-      slug: 'mulheres-e-as-tecnotecnologias',
-      category: [
-        {
-          id: 2,
-          name: 'Artes e Teatro',
-          slug: 'artes-e-teatro',
-        }
-      ],
-      date: '20 de Agosto pelas 19 horas',
-      locations: [
-        {
-          location: 'Luanda, Angola'
-        }
-      ]
-    }
-  ];
+  events = input.required<Event[]>();
+  isLoading = input.required<boolean>();
+  limit = input.required<number>();
 }

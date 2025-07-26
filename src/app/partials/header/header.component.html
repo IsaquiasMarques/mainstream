@@ -1,12 +1,14 @@
 <header class="header-container shadow-[0px_24px_40px_0px_rgba(0,0,0,0.03)] py-3">
     <div class="content limited-container flex justify-between items-center">
         <div class="logo">
-            <img src="/assets/static/logo.svg" alt="">
+            <a [routerLink]="['/']">
+                <img src="/assets/static/logo.svg" alt="">
+            </a>
         </div>
         <div class="navigation hidden xl:flex xl:justify-between xl:items-center">
             <ul class=" flex gap-8 items-center">
                 <li>
-                    <a [routerLink]="['']" [routerLinkActive]="'text-(color:--primary)'" [routerLinkActiveOptions]="{ exact: true }" class="text-base duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Home</a>
+                    <a [routerLink]="['/']" [routerLinkActive]="'text-(color:--primary)'" [routerLinkActiveOptions]="{ exact: true }" class="text-base duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Home</a>
                 </li>
                 <li>
                     <a [routerLink]="['/about-us']" [routerLinkActive]="'text-(color:--primary)'" class="text-base duration-[.2s] font-medium -tracking-[2%] !font-['Montserrat']">Sobre Nós</a>
@@ -26,7 +28,7 @@
             </ul>
         </div>
         <div class="cta hidden xl:block">
-            <button class="flex gap-3 justify-start items-center !font-['Montserrat'] font-medium text-base">
+            <a [href]="this.backoffice + '/auth'" class="flex gap-3 justify-start items-center !font-['Montserrat'] font-medium text-base">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_669_263)">
                     <circle cx="15" cy="15" r="15" fill="#FFECF0"/>
@@ -40,7 +42,7 @@
                     </defs>
                 </svg>
                 Acessar conta
-            </button>
+            </a>
         </div>
 
         <div class="menu-invoker xl:hidden h-[38px]">

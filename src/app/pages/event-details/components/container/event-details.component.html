@@ -1,6 +1,14 @@
 <div class="section-container">
-    <app-hero />
-    <app-ticket-details />
-    <app-tickets />
-    <app-recommended></app-recommended>
+    @if(!this.error404()){
+        <app-hero [event]="this.theEvent()" [isLoading]="this.isLoading()" />
+        <app-ticket-details [event]="this.theEvent()" [isLoading]="this.isLoading()" />
+        <app-tickets [event]="this.theEvent()" [isLoading]="this.isLoading()" />
+        <app-recommended [events]="this.recommendedEvents()" [limit]="recommendedEventsLimit()" [isLoading]="this.isLoading()"></app-recommended>
+    } @else {
+        <app-page-head [breadcrumbs]="[ { name: 'Página Inicial', route: ['/'] }, { name: 'Eventos', route: ['/events'] }, { name: 'Evento não encontrado' } ]">
+            <h1 class="!font-['Unigeo'] font-semibold text-3xl leading-[120%] tracking-[0%]">
+                Este evento não foi encontrado.
+            </h1>
+        </app-page-head>
+    }
 </div>

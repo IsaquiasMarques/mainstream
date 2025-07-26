@@ -68,21 +68,63 @@
                     </p>
                 </div>
                 <div class="form-body mt-4">
-                    <form class="flex flex-col gap-4">
+                    <form [formGroup]="this.becomeAdvertiserFormGroup" (ngSubmit)="submit()" class="flex flex-col gap-4">
                         <div class="input flex flex-col gap-2">
-                            <label for="name" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Nome</label>
-                            <input type="text" id="name" placeholder="Nome Completo" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                            <label for="name" class="font-medium duration-[.6s] !font-['Montserrat'] text-sm text-(color:--secondary)">Nome</label>
+                            <input
+                            [ngClass]="{
+                                'is-invalid': this.becomeAdvertiserFormGroup.get('name')?.invalid && this.becomeAdvertiserFormGroup.get('name')?.touched
+                            }"
+                            type="text" formControlName="name" id="name" placeholder="Nome Completo" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                            @if (this.becomeAdvertiserFormGroup.get('name')?.invalid && (this.becomeAdvertiserFormGroup.get('name')?.touched || this.formIsInvalid())) {
+                                <small class="text-red-500">Verifique os dados deste campo</small>
+                            }
                         </div>
                         <div class="input flex flex-col gap-2">
-                            <label for="email" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Email</label>
-                            <input type="email" id="email" placeholder="Email" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                            <label for="email" class="font-medium duration-[.6s] !font-['Montserrat'] text-sm text-(color:--secondary)">Email</label>
+                            <input
+                            [ngClass]="{
+                                'is-invalid': this.becomeAdvertiserFormGroup.get('email')?.invalid && this.becomeAdvertiserFormGroup.get('email')?.touched
+                            }"
+                            type="email" formControlName="email" id="email" placeholder="Email" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                            @if (this.becomeAdvertiserFormGroup.get('email')?.invalid && (this.becomeAdvertiserFormGroup.get('email')?.touched || this.formIsInvalid())) {
+                                <small class="text-red-500">Verifique os dados deste campo</small>
+                            }
                         </div>
                         <div class="input flex flex-col gap-2">
-                            <label for="password" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Senha</label>
-                            <input type="password" id="password" placeholder="Senha" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                            <label for="password" class="font-medium duration-[.6s] !font-['Montserrat'] text-sm text-(color:--secondary)">Senha</label>
+                            <input
+                            [ngClass]="{
+                                'is-invalid': this.becomeAdvertiserFormGroup.get('password')?.invalid && this.becomeAdvertiserFormGroup.get('password')?.touched
+                            }"
+                            type="password" formControlName="password" id="password" placeholder="Senha" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                            <small class="text-gray-400">A senha deve ter pelo menos 8 caracteres, incluir letras, números e símbolos.</small>
+                            @if (this.becomeAdvertiserFormGroup.get('password')?.invalid && (this.becomeAdvertiserFormGroup.get('password')?.touched || this.formIsInvalid())) {
+                                <small class="text-red-500">Verifique os dados deste campo</small>
+                            }
+                        </div>
+                        <div class="input flex flex-col gap-2">
+                            <label for="password-confirmation" class="font-medium duration-[.6s] !font-['Montserrat'] text-sm text-(color:--secondary)">Confirme a senha</label>
+                            <input
+                            [ngClass]="{
+                                'is-invalid': this.becomeAdvertiserFormGroup.get('password_confirmation')?.invalid && this.becomeAdvertiserFormGroup.get('password_confirmation')?.touched
+                            }"
+                            type="password" formControlName="password_confirmation" id="password-confirmation" placeholder="Senha" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                            @if (this.becomeAdvertiserFormGroup.get('password_confirmation')?.invalid && (this.becomeAdvertiserFormGroup.get('password_confirmation')?.touched || this.formIsInvalid())) {
+                                <small class="text-red-500">Verifique os dados deste campo</small>
+                            }
+                            @if (!this.password_confirm() && ( this.becomeAdvertiserFormGroup.get('password')?.value !== '' && this.becomeAdvertiserFormGroup.get('password_confirmation')?.value !== '')) {
+                                <small class="text-red-500">As senhas não condizem</small>
+                            }
                         </div>
                         <div class="submit w-full mt-7">
-                            <button type="" class="bg-(color:--primary) text-white w-full py-4 text-center !font-['Montserrat'] text-sm font-medium rounded-lg">Enviar</button>
+                            <button type="submit" class="bg-(color:--primary) cursor-pointer text-white w-full py-4 text-center flex justify-center items-center !font-['Montserrat'] text-sm font-medium rounded-lg">
+                                @if (this.isCreatingAdvertiser()) {
+                                    <img class="w-5 h-5" src="assets/static/loader.svg" alt="">
+                                } @else {
+                                    Enviar
+                                }
+                            </button>
                         </div>
                     </form>
                 </div>

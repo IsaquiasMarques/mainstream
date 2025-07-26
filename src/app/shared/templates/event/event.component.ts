@@ -1,5 +1,6 @@
 import { Component, input, InputSignal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Event } from '@core/models/event.model';
 
 @Component({
   selector: 'app-event',
@@ -8,5 +9,6 @@ import { RouterLink } from '@angular/router';
   styleUrl: './event.component.css'
 })
 export class EventComponent {
-  event: InputSignal<any> = input.required();
+  event = input.required<Event>();
+  isLoading = input.required<boolean>();
 }

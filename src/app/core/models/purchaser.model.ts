@@ -1,0 +1,9 @@
+import { ReceiveTicicketDetailsOPtions } from "@core/enums/receive-ticket-details-options.enum";
+
+export interface TicketPurchaser{
+    name: string,
+    email: string,
+    address: string,
+    contact: string,
+    option: ReceiveTicicketDetailsOPtions
+}

@@ -1,7 +1,7 @@
 <div class="section-container">
     <app-hero />
-    <app-search />
-    <app-events-displayer [paginated]="false" [events]="events">
+    <app-search [categories]="this.categories()" [locations]="this.locations()" />
+    <app-events-displayer [isLoading]="this.isLoadingEvents()" [limit]="limit()" [paginated]="false" [events]="events()">
         <div class="section-header flex flex-col gap-[50px]" ngProjectAs="section-header">
             <div class="content flex flex-col gap-12">
                 <div class="title text-center flex flex-col items-center gap-2">
@@ -15,7 +15,7 @@
             </div>
             <div class="events-categories">
                 <div class="categories flex flex-wrap gap-2 justify-center items-center">
-                    @for (category of categories; track $index) {
+                    @for (category of categories(); track $index) {
                         <div class="category">
                             <a [routerLink]="['/events/category/' + category.slug]" class=" text-sm !font-['Montserrat'] block w-fit px-7 py-3 border-[0.5px] rounded-full duration-75 border-[#020B26] text-[#020B26] hover:border-(color:--primary) hover:text-(color:--primary)">
                                 {{ category.name }}

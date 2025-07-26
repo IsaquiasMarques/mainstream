@@ -20,21 +20,46 @@ export const routes: Routes = [
                 title: 'Acompanhe todos os eventos',
             },
             {
-                path: 'category/:category',
-                loadComponent: () => import('./pages/events/components/container/events.component').then(component => component.EventsComponent),
-                title: 'Acompanhe todos os eventos desta categoria',
+                path: 'category',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: '/events',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: ':category',
+                        loadComponent: () => import('./pages/events/components/container/events.component').then(component => component.EventsComponent),
+                        title: 'Acompanhe todos os eventos desta categoria',
+                    }
+                ]
             },
             {
-                path: 'details/:event',
-                loadComponent: () => import('./pages/event-details/components/container/event-details.component').then(component => component.EventDetailsComponent),
-                title: 'Detalhes do evento'
+                path: 'details',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: '/events',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: ':event',
+                        loadComponent: () => import('./pages/event-details/components/container/event-details.component').then(component => component.EventDetailsComponent),
+                        title: 'Detalhes do evento'
+                    }
+                ]
+            },
+            {
+                path: 'search-results',
+                loadComponent: () => import('./pages/search-result/components/container/search-result.component').then(component => component.SearchResultComponent),
+                title: 'Resultados de pesquisa'
             }
         ],
     },
     {
         path: 'checkout',
         loadComponent: () => import('./pages/checkout/components/container/checkout.component').then(component => component.CheckoutComponent),
-        title: 'Finalize a suma compra',
+        title: 'Finalize a sua compra',
     },
     {
         path: 'faq',
