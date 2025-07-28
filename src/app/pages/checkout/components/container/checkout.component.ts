@@ -30,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   error404 = signal(false);
   
   isPurchasingTicket = signal(false);
+  purchaseCompleted = signal(false);
 
   ngOnInit(): void {
     this.getCheckout();
@@ -50,6 +51,7 @@ export class CheckoutComponent implements OnInit {
       next: (response) => {
         if(response.status === HttpStatusCode.NoContent){
             this.popup.add("Seu pedido foi concluído com êxito. Entraremos em contacto pela via escolhida.", PopupStatus.SUCCESS);
+            this.purchaseCompleted.set(true);
         }
         this.isPurchasingTicket.set(false);
       },

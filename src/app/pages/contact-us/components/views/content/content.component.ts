@@ -1,9 +1,10 @@
 import { NgClass } from '@angular/common';
 import { HttpStatusCode } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContactUsApiService } from '@core/api/contact-us.api.service';
 import { ContactUsContract } from '@core/contracts/contact-us.contract';
+import { AboutUs } from '@core/models/about-us.model';
 import { PopUp, PopupStatus } from '@libraries/popup/popup.service';
 
 @Component({
@@ -15,6 +16,9 @@ import { PopUp, PopupStatus } from '@libraries/popup/popup.service';
 export class ContentComponent implements OnInit {
 
   contactClient = inject(ContactUsApiService);
+
+  aboutus = input.required<AboutUs | null>();
+  isLoading = input.required<boolean>();
 
   contactUsFormGroup!: FormGroup;
   formIsInvalid = signal(false);
@@ -51,21 +55,22 @@ export class ContentComponent implements OnInit {
       name: this.contactUsFormGroup.get('name')?.value,
       email: this.contactUsFormGroup.get('email')?.value,
       subject: this.contactUsFormGroup.get('subject')?.value,
-      phone_number: this.contactUsFormGroup.get('phone_number')?.value,
+      phone: this.contactUsFormGroup.get('phone_number')?.value,
       message: this.contactUsFormGroup.get('message')?.value,
     };
 
     this.isSendingMessage.set(true);
     this.contactClient.contact(message).subscribe({
       next: (response) => {
-        if(response.status === HttpStatusCode.Ok)
+        if(response.status === HttpStatusCode.Ok){
           this.popup.add("A sua mensagem foi enviada com êxito. Entraremos em contacto em breve.", PopupStatus.SUCCESS);
           this.isSendingMessage.set(false)
           this.contactUsFormGroup.reset();
+        }
       },
       error: (error) => {
 
-        // console.error(error);
+        console.error(error);
 
         // if(error.status === HttpStatusCode.UnprocessableEntity){
         //   // const messages: string[] = [];

@@ -16,6 +16,7 @@ export const environment = {
   production: true,
   server: '${process.env['server']}',
   mailme: '${process.env['mailme']}',
+  vendor: '${process.env['vendor']}',
 };
 `;
 

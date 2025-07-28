@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { ContactUsContract } from "@core/contracts/contact-us.contract";
 import { Observable } from "rxjs";
@@ -12,7 +12,12 @@ export class ContactUsApiService{
     constructor(private http: HttpClient) {}
 
     contact(body: ContactUsContract): Observable<any>{
-        return this.http.post<any>(`${environment.mailme}`, body);
+        const headers = new HttpHeaders({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        });
+
+        return this.http.post<any>(`${environment.mailme}`, body, { headers, observe: 'response' });
     }
 
 }

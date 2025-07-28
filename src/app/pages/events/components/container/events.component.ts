@@ -1,8 +1,9 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { CategoriesApiService } from '@core/api/categories.api.service';
-import { EventsApiService } from '@core/api/events.api.service';
+import { CategoryFacade } from '@core/facades/category.facade';
+import { EventFacade } from '@core/facades/event.facade';
+import { LocationFacade } from '@core/facades/location.facade';
 import { Category } from '@core/models/category.model';
 import { Event } from '@core/models/event.model';
 import { Location } from '@core/models/location.model';
@@ -18,8 +19,9 @@ import { PageHeadComponent } from '@shared/components/page-head/page-head.compon
 })
 export class EventsComponent implements OnInit {
   
-  categoriesClient = inject(CategoriesApiService);
-  eventsClient = inject(EventsApiService);
+  eventFacade = inject(EventFacade);
+  categoryFacade = inject(CategoryFacade);
+  locationFacade = inject(LocationFacade);
 
   activatedRoute = inject(ActivatedRoute);
 
@@ -66,16 +68,16 @@ export class EventsComponent implements OnInit {
   }
 
   private getCategories(): void{
-    this.categoriesClient.all().subscribe(categories => this.categories.set(categories));
+    this.categoryFacade.all().subscribe(categories => this.categories.set(categories));
   }
 
   private getLocations(): void{
-    this.eventsClient.locations().subscribe(locations => this.locations.set(locations));
+    this.locationFacade.all().subscribe(locations => this.locations.set(locations));
   }
 
   private getEvents(current_page: number = this.currentPage()): void{
     this.isLoadingEvents.set(true);
-    this.eventsClient.all(current_page, this.limit()).subscribe({
+    this.eventFacade.latest(current_page, this.limit()).subscribe({
       next: events => {
         this.events.set([...this.events(), ...events])
         this.isLoadingEvents.set(false);
@@ -85,7 +87,7 @@ export class EventsComponent implements OnInit {
 
   private getEventsByCategory(category: string, current_page: number = this.currentPage()): void{
     this.isLoadingEvents.set(true);
-    this.eventsClient.byCategory(category, current_page, this.limit()).subscribe({
+    this.eventFacade.byCategory(category, current_page, this.limit()).subscribe({
       next: events => {
         this.events.set([...this.events(), ...events])
         this.isLoadingEvents.set(false);

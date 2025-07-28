@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Event } from '@core/models/event.model';
 import { HttpStatusCode } from '@angular/common/http';
 import { PageHeadComponent } from "@shared/components/page-head/page-head.component";
+import { PopUp, PopupStatus } from '@libraries/popup/popup.service';
 
 @Component({
   selector: 'app-event-details',
@@ -18,6 +19,7 @@ import { PageHeadComponent } from "@shared/components/page-head/page-head.compon
 export class EventDetailsComponent implements OnInit {
 
   theEvent: WritableSignal<Event[]> = signal([]);
+  popup = inject(PopUp);
   recommendedEvents: WritableSignal<Event[]> = signal([]);
 
   eventsClient = inject(EventsApiService);
@@ -56,7 +58,7 @@ export class EventDetailsComponent implements OnInit {
           this.error404.set(true);
 
         } else {
-
+          this.popup.add("Ocorreu um erro ao pegar este evento.", PopupStatus.ERROR);
           this.error404.set(false);
         }
 

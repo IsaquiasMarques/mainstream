@@ -6,9 +6,11 @@ import { DisplayerComponent as EventsDisplayer } from '@shared/components/events
 import { RouterLink } from '@angular/router';
 import { CategoriesApiService } from '@core/api/categories.api.service';
 import { Category } from '@core/models/category.model';
-import { EventsApiService } from '@core/api/events.api.service';
 import { Event } from '@core/models/event.model';
 import { Location } from '@core/models/location.model';
+import { EventFacade } from '@core/facades/event.facade';
+import { LocationFacade } from '@core/facades/location.facade';
+import { CategoryFacade } from '@core/facades/category.facade';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +20,9 @@ import { Location } from '@core/models/location.model';
 })
 export class HomeComponent implements OnInit {
   
-  categoriesClient = inject(CategoriesApiService);
-  eventsClient = inject(EventsApiService);
+  eventsFacade = inject(EventFacade);
+  categoryFacade = inject(CategoryFacade);
+  locationyFacade = inject(LocationFacade);
 
   categories: WritableSignal<Category[]> = signal([]);
   locations: WritableSignal<Location[]> = signal([]);
@@ -37,16 +40,16 @@ export class HomeComponent implements OnInit {
   }
 
   private getCategories(): void{
-    this.categoriesClient.all().subscribe(categories => this.categories.set(categories));
+    this.categoryFacade.all().subscribe(categories => this.categories.set(categories));
   }
 
   private getLocations(): void{
-    this.eventsClient.locations().subscribe(locations => this.locations.set(locations));
+    this.locationyFacade.all().subscribe(locations => this.locations.set(locations));
   }
 
   private getEvents(): void{
     this.isLoadingEvents.set(true);
-    this.eventsClient.all(1, this.limit()).subscribe({
+    this.eventsFacade.latest(1, this.limit()).subscribe({
       next: events => {
         this.events.set(events)
         this.isLoadingEvents.set(false);

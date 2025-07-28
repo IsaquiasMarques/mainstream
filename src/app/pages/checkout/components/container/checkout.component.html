@@ -11,7 +11,7 @@
             </h1>
         </app-page-head>
         <app-ticket [checkouts]="this.checkouts()" />
-        <app-book-ticket (purchaseFormDateEventEmitter)="purchaseTicket($event)" [isPurchasingTicket]="isPurchasingTicket()" />
+        <app-book-ticket (purchaseFormDateEventEmitter)="purchaseTicket($event)" [purchaseCompleted]="purchaseCompleted()" [isPurchasingTicket]="isPurchasingTicket()" />
     } @else {
         <app-page-head [breadcrumbs]="[
         { name: 'Página Inicial', route: ['/'] },

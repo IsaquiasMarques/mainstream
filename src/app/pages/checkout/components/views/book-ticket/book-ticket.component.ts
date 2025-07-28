@@ -20,6 +20,7 @@ export class BookTicketComponent implements OnInit {
 
   purchaseFormDateEventEmitter = output<TicketPurchaser>();
   isPurchasingTicket = input.required<boolean>();
+  purchaseCompleted = input.required<boolean>();
 
   ngOnInit(): void {
     this.purchaseTicketFormGroup = new FormGroup({
