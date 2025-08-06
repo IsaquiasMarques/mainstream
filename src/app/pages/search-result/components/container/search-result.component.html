@@ -1,5 +1,12 @@
 <div class="section-container">
-    <app-events-displayer [paginated]="false" [events]="events()">
+    <app-events-displayer
+    [paginated]="true"
+    [isLoading]="this.isLoadingEvents()"
+    [limit]="limit()"
+    [paginated]="true"
+    (loadMoreEventsEmmiter)="this.loadMoreEvents()"
+    [button]="{ visible: this.hasLoadMoreButtonAppear(), label: 'Carregar mais eventos', route: [] }"
+    [events]="events()">
         <div class="section-header flex flex-col gap-[50px]" ngProjectAs="section-header">
             <div class="content flex flex-col gap-12">
                 <div class="title text-center flex flex-col items-center gap-2">

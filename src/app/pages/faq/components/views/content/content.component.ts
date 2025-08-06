@@ -13,7 +13,7 @@ import { AccordionBodyAdjusterDirective } from '@pages/faq/directives/accordion-
           <div class="faqs flex flex-col gap-8 items-center">
             
             @for (faq of faqs(); track $index) {
-              <div class="faq-container w-full max-w-[770px] overflow-hidden bg-[#FFECF0] rounded-lg">
+              <div [attr.data-aos]="($index%2 == 0) ? 'fade-right' : 'fade-left'" [attr.data-aos-delay]="$index * 200" class="faq-container w-full max-w-[770px] overflow-hidden bg-[#FFECF0] rounded-lg">
                 <button class="header flex justify-between p-7 gap-7 items-center cursor-pointer w-full" (click)="extends($index)">
                   <span class="text-(color:--secondary) !font-['Montserrat'] text-left text-base lg:text-lg font-bold leading-[120%] -tracking-[2%]">
                     {{ faq.question }}

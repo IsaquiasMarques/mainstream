@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { PaginatedPage } from '@core/classes/paginated-page.class';
 import { CategoryFacade } from '@core/facades/category.facade';
 import { EventFacade } from '@core/facades/event.facade';
 import { LocationFacade } from '@core/facades/location.facade';
@@ -17,7 +18,7 @@ import { PageHeadComponent } from '@shared/components/page-head/page-head.compon
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })
-export class EventsComponent implements OnInit {
+export class EventsComponent extends PaginatedPage implements OnInit {
   
   eventFacade = inject(EventFacade);
   categoryFacade = inject(CategoryFacade);
@@ -30,11 +31,6 @@ export class EventsComponent implements OnInit {
   
   events: WritableSignal<Event[]> = signal([]);
   selectedCategory: WritableSignal<string | undefined> = signal(undefined);
-
-  isLoadingEvents = signal(true);
-
-  currentPage = signal<number>(1);
-  limit = signal<number>(6);
 
   ngOnInit(): void {
     this.getCategories();
@@ -57,14 +53,15 @@ export class EventsComponent implements OnInit {
   }
 
   public loadMoreEvents(): void{
-    this.currentPage.update(val => val + 1);
+      if(!this.hasLoadMoreButtonAppear()) return;
+      this.currentPage.update(val => val + 1);
 
-    if(this.selectedCategory()){
-      this.getEventsByCategory(this.selectedCategory()!, this.currentPage())
+      if(this.selectedCategory()){
+        this.getEventsByCategory(this.selectedCategory()!, this.currentPage())
 
-    } else {
-      this.getEvents(this.currentPage());
-    }
+      } else {
+        this.getEvents(this.currentPage());
+      }
   }
 
   private getCategories(): void{
@@ -79,7 +76,14 @@ export class EventsComponent implements OnInit {
     this.isLoadingEvents.set(true);
     this.eventFacade.latest(current_page, this.limit()).subscribe({
       next: events => {
-        this.events.set([...this.events(), ...events])
+
+        if(events.next_page_url !== null){
+          this.hasLoadMoreButtonAppear.set(true);
+        } else {
+          this.hasLoadMoreButtonAppear.set(false);
+        }
+
+        this.events.set([...this.events(), ...events.data])
         this.isLoadingEvents.set(false);
       }
     });
@@ -89,7 +93,14 @@ export class EventsComponent implements OnInit {
     this.isLoadingEvents.set(true);
     this.eventFacade.byCategory(category, current_page, this.limit()).subscribe({
       next: events => {
-        this.events.set([...this.events(), ...events])
+
+        if(events.next_page_url !== null){
+          this.hasLoadMoreButtonAppear.set(true);
+        } else {
+          this.hasLoadMoreButtonAppear.set(false);
+        }
+
+        this.events.set([...this.events(), ...events.data])
         this.isLoadingEvents.set(false);
       }
     });

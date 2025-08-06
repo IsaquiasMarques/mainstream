@@ -10,7 +10,7 @@ import { AboutUs } from '@core/models/about-us.model';
         @if (!isLoading()) {
           <div class="details-boxes py-16 flex flex-wrap gap-7 justify-between items-stretch">
   
-            <div class="box w-full lg:w-[calc(calc(100%/3)-30px)] flex flex-col gap-7 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+            <div data-aos="fade-up" data-aos-delay="0" class="box w-full duration-[.2s] lg:w-[calc(calc(100%/3)-30px)] flex flex-col gap-7 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
               <h1 class="!font-[Montserrat] font-semibold text-lg flex gap-3 items-center text-(color:--secondary) leading-[120%] -tracking-[2%]">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_767_2510)">
@@ -34,7 +34,7 @@ import { AboutUs } from '@core/models/about-us.model';
                   </p>
               </div>
             </div>
-            <div class="box w-full lg:w-[calc(calc(100%/3)-30px)] flex flex-col gap-7 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+            <div data-aos="fade-up" data-aos-delay="100" class="box w-full lg:w-[calc(calc(100%/3)-30px)] flex flex-col gap-7 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
               <h1 class="!font-[Montserrat] font-semibold text-lg flex gap-3 items-center text-(color:--secondary) leading-[120%] -tracking-[2%]">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_767_1651)">
@@ -61,7 +61,7 @@ import { AboutUs } from '@core/models/about-us.model';
                   </p>
               </div>
             </div>
-            <div class="box w-full lg:w-[calc(calc(100%/3)-30px)] flex flex-col gap-7 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+            <div data-aos="fade-up" data-aos-delay="200" class="box w-full lg:w-[calc(calc(100%/3)-30px)] flex flex-col gap-7 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
               <h1 class="!font-[Montserrat] font-semibold text-lg flex gap-3 items-center text-(color:--secondary) leading-[120%] -tracking-[2%]">
                 <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_767_1671)">

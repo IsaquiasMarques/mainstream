@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
 
   limit = signal<number>(6);
 
+  hasLoadMoreButtonAppear = signal<boolean>(false);
+
   ngOnInit(): void {
     this.getCategories();
     this.getLocations();
@@ -51,7 +53,14 @@ export class HomeComponent implements OnInit {
     this.isLoadingEvents.set(true);
     this.eventsFacade.latest(1, this.limit()).subscribe({
       next: events => {
-        this.events.set(events)
+        
+        if(events.next_page_url !== null){
+          this.hasLoadMoreButtonAppear.set(true);
+        } else {
+          this.hasLoadMoreButtonAppear.set(false);
+        }
+
+        this.events.set(events.data)
         this.isLoadingEvents.set(false);
       }
     });

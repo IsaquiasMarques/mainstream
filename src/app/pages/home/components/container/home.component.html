@@ -1,14 +1,20 @@
 <div class="section-container">
     <app-hero />
     <app-search [categories]="this.categories()" [locations]="this.locations()" />
-    <app-events-displayer [isLoading]="this.isLoadingEvents()" [limit]="limit()" [paginated]="false" [events]="events()">
+    <app-events-displayer
+    [isLoading]="this.isLoadingEvents()"
+    [limit]="limit()"
+    [paginated]="false"
+    [button]="{ visible: this.hasLoadMoreButtonAppear(), label: 'Ver mais Eventos', route: ['/events'] }"
+    [events]="events()"
+    >
         <div class="section-header flex flex-col gap-[50px]" ngProjectAs="section-header">
             <div class="content flex flex-col gap-12">
                 <div class="title text-center flex flex-col items-center gap-2">
-                    <h6 class="text-base xl:text-xl !font-['Montserrat']">
+                    <h6 data-aos="fade-up" class="text-base xl:text-xl !font-['Montserrat']">
                         Eventos
                     </h6>
-                    <h1 class="font-semibold text-2xl xl:max-w-[550px] xl:text-4xl !font-['Unigeo']">
+                    <h1 data-aos="fade-up" data-aos-delay="200" class="font-semibold text-2xl xl:max-w-[550px] xl:text-4xl !font-['Unigeo']">
                         Garanta já o seu lugar no evento que mais combina com você!
                     </h1>
                 </div>
@@ -16,7 +22,7 @@
             <div class="events-categories">
                 <div class="categories flex flex-wrap gap-2 justify-center items-center">
                     @for (category of categories(); track $index) {
-                        <div class="category">
+                        <div class="category" data-aos="fade-up" [attr.data-aos-delay]="$index * 50">
                             <a [routerLink]="['/events/category/' + category.slug]" class=" text-sm !font-['Montserrat'] block w-fit px-7 py-3 border-[0.5px] rounded-full duration-75 border-[#020B26] text-[#020B26] hover:border-(color:--primary) hover:text-(color:--primary)">
                                 {{ category.name }}
                             </a>

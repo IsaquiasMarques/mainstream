@@ -16,15 +16,15 @@ import { SearchTermCatcher } from '@pages/search-result/helpers/search-term-catc
       <div class="limited-container flex flex-col gap-[50px]">
           <div class="content flex flex-col gap-12">
               <div class="title text-center flex flex-col gap-2">
-                  <h6 class="text-base xl:text-xl !font-['Montserrat']">
+                  <h6 data-aos="fade-up" class="text-base xl:text-xl !font-['Montserrat']">
                       Procure o evento
                   </h6>
-                  <h1 class="font-semibold text-2xl xl:text-4xl !font-['Unigeo']">
+                  <h1 data-aos="fade-up" data-aos-delay="200" class="font-semibold text-2xl xl:text-4xl !font-['Unigeo']">
                       Mais próximo de ti
                   </h1>
               </div>
 
-              <div class="form-content">
+              <div class="form-content" data-aos="fade-up" data-aos-delay="300">
                   <form (submit)="submit()" [formGroup]="searchFormGroup" class="flex flex-col flex-wrap xl:flex-nowrap xl:flex-row xl:justify-center gap-8 xl:items-center">
                       <div class="form bg-[#FFECF0] w-full rounded-xl p-3 xl:py-7 xl:px-8 flex flex-wrap xl:flex-nowrap gap-4 xl:justify-start xl:items-center">
                           <div class="category flex gap-2 items-center xl:pr-9 xl:py-2">
@@ -62,7 +62,7 @@ import { SearchTermCatcher } from '@pages/search-result/helpers/search-term-catc
                           </div>
                       </div>
                       <div class="submition">
-                          <button type="submit" class="text-white w-full xl:w-[263px] cursor-pointer font-medium rounded-lg !font-['Montserrat'] text-sm px-7 py-6 bg-(color:--primary)">
+                          <button type="submit" class="duration-[.3s] text-white hover:text-(color:--primary) bg-(color:--primary) hover:bg-white hover:border-1 hover:border-(color:--primary) w-full xl:w-[263px] cursor-pointer font-medium rounded-lg !font-['Montserrat'] text-sm px-7 py-6">
                               Pesquisar
                           </button>
                       </div>
@@ -110,7 +110,7 @@ export class SearchComponent implements OnInit {
         const raw = this.searchFormGroup.value;
         const term: SearchTerm = {};
 
-        console.log(this.category, this.location)
+        // console.log(this.category, this.location)
 
         if (this.category && this.category !== 'Categoria') {
             term.category = this.category;

@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideExperimentalZonelessChangeDetection(),
     provideRouter(
       routes,
-      // inMemoryScrollingFeature
+      inMemoryScrollingFeature
     ),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch())

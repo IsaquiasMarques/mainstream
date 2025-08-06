@@ -5,7 +5,7 @@
                 Saiba como vender na nossa plataforma
             </h1>
             <div class="steps flex flex-wrap gap-3 justify-start items-stretch">
-                <div class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                <div data-aos="fade-up" data-aos-delay="0" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
                     <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
                       1º Passo
                     </h1>
@@ -15,7 +15,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                <div data-aos="fade-up" data-aos-delay="100" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
                     <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
                       2º Passo
                     </h1>
@@ -25,7 +25,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                <div data-aos="fade-up" data-aos-delay="0" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
                     <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
                       3º Passo
                     </h1>
@@ -35,7 +35,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                <div data-aos="fade-up" data-aos-delay="100" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
                     <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
                       4º Passo
                     </h1>
@@ -45,7 +45,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                <div data-aos="fade-up" data-aos-delay="0" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
                     <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
                       5º Passo
                     </h1>
@@ -58,14 +58,14 @@
             </div>
         </div>
         <div class="contact-form w-full xl:w-[470px]">
-            <div class="form-container p-7 rounded-lg border-[0.5px] border-(color:--secondary) lg:sticky lg:top-[110px]">
+            <div data-aos="fade-left" class="form-container p-7 rounded-lg border-[0.5px] border-(color:--secondary) lg:sticky lg:top-[110px]">
                 <div class="form-header flex flex-col gap-4">
-                    <!-- <h1 class="text-(color:--secondary) font-semibold text-2xl leading-[120%] !font-['Unigeo']">
-                        Cria a sua conta para vender connoscos
-                    </h1> -->
-                    <p class="text-(color:--secondary)/60 text-sm leading-[120%] -tracking-[2%] !font-['Montserrat']">
+                    <h1 class="text-(color:--secondary) font-semibold text-2xl leading-[120%] !font-['Unigeo']">
+                        Cria uma conta e comece a vender na mainstream
+                    </h1>
+                    <!-- <p class="text-(color:--secondary)/60 text-sm leading-[120%] -tracking-[2%] !font-['Montserrat']">
                         Insira o seu e-mail ou Whatsapp para o próximo passo da compra do Bilhete
-                    </p>
+                    </p> -->
                 </div>
                 <div class="form-body mt-4">
                     <form [formGroup]="this.becomeAdvertiserFormGroup" (ngSubmit)="submit()" class="flex flex-col gap-4">
@@ -113,7 +113,7 @@
                             @if (this.becomeAdvertiserFormGroup.get('password_confirmation')?.invalid && (this.becomeAdvertiserFormGroup.get('password_confirmation')?.touched || this.formIsInvalid())) {
                                 <small class="text-red-500">Verifique os dados deste campo</small>
                             }
-                            @if (!this.password_confirm() && ( this.becomeAdvertiserFormGroup.get('password')?.value !== '' && this.becomeAdvertiserFormGroup.get('password_confirmation')?.value !== '')) {
+                            @if (becomeAdvertiserFormGroup.hasError('passwordMismatch') && this.becomeAdvertiserFormGroup.get('password_confirmation')?.touched) {
                                 <small class="text-red-500">As senhas não condizem</small>
                             }
                         </div>

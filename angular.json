@@ -49,9 +49,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "./node_modules/aos/dist/aos.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "./node_modules/aos/dist/aos.js"
+            ],
             "server": "src/main.server.ts",
             "prerender": false,
             "ssr": {
@@ -107,6 +110,9 @@
             },
             "development": {
               "buildTarget": "mainstream:build:development"
+            },
+            "staging": {
+              "buildTarget": "mainstream:build:staging"
             }
           },
           "defaultConfiguration": "development"

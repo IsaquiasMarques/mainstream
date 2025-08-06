@@ -15,7 +15,7 @@ import { CustomNumberInputComponent } from '@shared/ui-elements/custom-number-in
 
         @if(!isLoading()){
           @for (ticket of tickets(); track $index) {
-            <div class="ticket flex flex-col lg:flex-row gap-3 justify-between items-start lg:items-center px-7 py-5 rounded-lg bg-[#FFECF0]">
+            <div data-aos="fade-right" [attr.data-aos-delay]="$index * 200" class="ticket flex flex-col lg:flex-row gap-3 justify-between items-start lg:items-center px-7 py-5 rounded-lg bg-[#FFECF0]">
               <div class="info flex gap-7 items-center">
                 <p class="type text-base !font-['Montserrat'] min-w-[100px] uppercase">{{ ticket.type }}</p>
                 <p class="price font-bold !font-['Inter] text-2xl">{{ ticket.formatted_price }} KZ</p>

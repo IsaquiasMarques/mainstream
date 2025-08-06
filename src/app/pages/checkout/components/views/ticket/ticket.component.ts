@@ -12,7 +12,7 @@ import { CustomNumberInputComponent } from "@shared/ui-elements/custom-number-in
       <div class="limited-container flex flex-col gap-6 py-16">
 
         @for (checkout of checkouts(); track $index) {
-          <div class="ticket-details bg-[#FFECF0] px-7 py-5 rounded-lg flex flex-col lg:flex-row gap-5 lg:gap-3 justify-between items-start lg:items-center">
+          <div data-aos="fade-up" data-aos-delay="0" class="ticket-details bg-[#FFECF0] px-7 py-5 rounded-lg flex flex-col lg:flex-row gap-5 lg:gap-3 justify-between items-start lg:items-center">
             <div class="event-details max-w-[476px] flex flex-col gap-5 lg:gap-3">
               <h4 class="text-xl leading-[120%]">
                 {{ checkout.event.title }}

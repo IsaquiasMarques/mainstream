@@ -1,5 +1,5 @@
 import { Injectable, signal } from "@angular/core";
-import { Event } from "@core/models/event.model";
+import { Event, PaginatedEventResponse } from "@core/models/event.model";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
@@ -7,35 +7,35 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export class EventsData{
     
-    private latestEventsContainer: BehaviorSubject<Event[]> = new BehaviorSubject<Event[]>([]);
-    private paginatedEventsContainer: { [page: number]: BehaviorSubject<Event[]>} = { 0: new BehaviorSubject<Event[]>([]) };
-    private paginatedWithCategoryFilterEventsContainer: { [page: number]: { [categorySlug: string]: BehaviorSubject<Event[]> } } = { 0: { '': new BehaviorSubject<Event[]>([]) } };
+    private latestEventsContainer: BehaviorSubject<PaginatedEventResponse[]> = new BehaviorSubject<PaginatedEventResponse[]>([]);
+    private paginatedEventsContainer: { [page: number]: BehaviorSubject<PaginatedEventResponse[]>} = { 0: new BehaviorSubject<PaginatedEventResponse[]>([]) };
+    private paginatedWithCategoryFilterEventsContainer: { [page: number]: { [categorySlug: string]: BehaviorSubject<PaginatedEventResponse[]> } } = { 0: { '': new BehaviorSubject<PaginatedEventResponse[]>([]) } };
 
-    public insert(data: Event[]): void{
+    public insert(data: PaginatedEventResponse[]): void{
         this.latestEventsContainer.next(data);
     }
 
-    public get latestEvents(): Observable<Event[]>{
+    public get latestEvents(): Observable<PaginatedEventResponse[]>{
         return this.latestEventsContainer.asObservable();
     }
 
-    public insertWithPagination(data: Event[], page: number): void {
+    public insertWithPagination(data: PaginatedEventResponse[], page: number): void {
         if (!this.paginatedEventsContainer[page]) {
-            this.paginatedEventsContainer[page] = new BehaviorSubject<Event[]>([]);
+            this.paginatedEventsContainer[page] = new BehaviorSubject<PaginatedEventResponse[]>([]);
         }
 
         this.paginatedEventsContainer[page].next(data);
     }
 
-    public getPaginatedData(page: number): Observable<Event[]> {
+    public getPaginatedData(page: number): Observable<PaginatedEventResponse[]> {
         if (!this.paginatedEventsContainer[page]) {
-            this.paginatedEventsContainer[page] = new BehaviorSubject<Event[]>([]);
+            this.paginatedEventsContainer[page] = new BehaviorSubject<PaginatedEventResponse[]>([]);
         }
 
         return this.paginatedEventsContainer[page].asObservable();
     }
 
-    public insertWithCategoryFilter(data: Event[], categorySlug: string, page: number): void{
+    public insertWithCategoryFilter(data: PaginatedEventResponse[], categorySlug: string, page: number): void{
         // Inicializa o page se não existir
         if (!this.paginatedWithCategoryFilterEventsContainer[page]) {
             this.paginatedWithCategoryFilterEventsContainer[page] = {};
@@ -43,21 +43,21 @@ export class EventsData{
 
         // Inicializa o categorySlug se não existir dentro da page
         if (!this.paginatedWithCategoryFilterEventsContainer[page][categorySlug]) {
-            this.paginatedWithCategoryFilterEventsContainer[page][categorySlug] = new BehaviorSubject<Event[]>([]);
+            this.paginatedWithCategoryFilterEventsContainer[page][categorySlug] = new BehaviorSubject<PaginatedEventResponse[]>([]);
         }
 
         // Define os dados no BehaviorSubject
         this.paginatedWithCategoryFilterEventsContainer[page][categorySlug].next(data);
     }
 
-    public getPaginatedWithCategoryFilter(categorySlug: string, page: number): Observable<Event[]>{
+    public getPaginatedWithCategoryFilter(categorySlug: string, page: number): Observable<PaginatedEventResponse[]>{
         // Inicializa caso ainda não tenha sido definido
         if (!this.paginatedWithCategoryFilterEventsContainer[page]) {
             this.paginatedWithCategoryFilterEventsContainer[page] = {};
         }
 
         if (!this.paginatedWithCategoryFilterEventsContainer[page][categorySlug]) {
-            this.paginatedWithCategoryFilterEventsContainer[page][categorySlug] = new BehaviorSubject<Event[]>([]);
+            this.paginatedWithCategoryFilterEventsContainer[page][categorySlug] = new BehaviorSubject<PaginatedEventResponse[]>([]);
         }
 
         return this.paginatedWithCategoryFilterEventsContainer[page][categorySlug].asObservable();

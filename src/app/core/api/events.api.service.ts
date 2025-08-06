@@ -2,9 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EventDetails } from '@core/contracts/event-details.contract';
 import { SearchTerm } from '@core/contracts/search-term.contract';
-import { Event } from '@core/models/event.model';
+import { Event, PaginatedEventResponse } from '@core/models/event.model';
 import { Location } from '@core/models/location.model';
-import { map, Observable, switchMap, tap } from 'rxjs';
+import { delay, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,24 +14,22 @@ export class EventsApiService {
 
   constructor(private http: HttpClient) { }
 
-  public all(page: number, per_page: number): Observable<Event[]>{
+  public all(page: number, per_page: number): Observable<PaginatedEventResponse>{
     return this.http.get<any>(`${environment.server}/api/v1/events?page=${page}&per_page=${per_page}`)
     .pipe(
-      map(response => response.data)
+      delay(3000),
     );
   }
 
-  public search(searchTerms: SearchTerm): Observable<Event[]>{
+  public search(searchTerms: SearchTerm, page: number, per_page: number): Observable<PaginatedEventResponse>{
     let params = new HttpParams();
     Object.entries(searchTerms).forEach(([key, value]) => {
       if(value !== undefined && value !== null && value !== ''){
         params = params.set(key, value);
       }
     });
-    return this.http.get<any>(`${environment.server}/api/v1/events/search`, { params })
-    .pipe(
-      map(response => response.data)
-    );
+    return this.http.get<any>(`${environment.server}/api/v1/events/search?page=${page}&per_page=${per_page}`, { params })
+    .pipe();
   }
 
   public event(slug: string, recommended_limit?: number): Observable<EventDetails>{
@@ -65,25 +63,19 @@ export class EventsApiService {
     );
   }
 
-  public byCategory(slug: string, page: number, per_page: number): Observable<Event[]>{
+  public byCategory(slug: string, page: number, per_page: number): Observable<PaginatedEventResponse>{
     return this.http.get<any>(`${environment.server}/api/v1/events/category/${slug}?page=${page}&per_page=${per_page}`)
-    .pipe(
-      map(response => response.data)
-    );
+    .pipe();
   }
 
-  public byTag(slug: string): Observable<Event[]>{
+  public byTag(slug: string): Observable<PaginatedEventResponse>{
     return this.http.get<any>(`${environment.server}/api/v1/events/tag/${slug}`)
-    .pipe(
-      map(response => response.data)
-    );
+    .pipe();
   }
 
-  public bySeller(ide: string): Observable<Event[]>{
+  public bySeller(ide: string): Observable<PaginatedEventResponse>{
     return this.http.get<any>(`${environment.server}/api/v1/events/advertiser/${ide}`)
-    .pipe(
-      map(response => response.data)
-    );
+    .pipe();
   }
 
 }

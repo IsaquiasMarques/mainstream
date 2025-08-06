@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { HttpStatusCode } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AdvertiserApiService } from '@core/api/advertiser.api.service';
 import { CreateAdvertiserContract } from '@core/contracts/create-advertiser.contract';
 import { PopUp, PopupStatus } from '@libraries/popup/popup.service';
@@ -34,7 +34,7 @@ export class ContentComponent implements OnInit {
       'email': new FormControl('', [ Validators.required, Validators.email ]),
       'password': new FormControl('', [ Validators.required, Validators.minLength(8) ]),
       'password_confirmation': new FormControl('', [ Validators.required, Validators.minLength(8) ])
-    });
+    }, { validators: this.passwordsMatchValidator });
 
     this.becomeAdvertiserFormGroup.get('password')?.valueChanges.subscribe((password: any) => {
         this.passwordCriteria = {
@@ -48,6 +48,13 @@ export class ContentComponent implements OnInit {
 
   }
 
+  passwordsMatchValidator(form: AbstractControl): ValidationErrors | null
+  {
+    const password = form.get('password')?.value;
+    const confirm = form.get('password_confirmation')?.value;
+    return password === confirm ? null : { passwordMismatch: true };
+  }
+
   validatePasswordCriterias(){
     if(
       !this.passwordCriteria.minLength      ||
@@ -59,18 +66,8 @@ export class ContentComponent implements OnInit {
     }
   }
 
-  public password_confirm(): boolean{
-    return this.becomeAdvertiserFormGroup.get('password')?.value === this.becomeAdvertiserFormGroup.get('password_confirmation')?.value;
-  }
-
   private validate(){
     if(this.becomeAdvertiserFormGroup.invalid){
-      this.formIsInvalid.set(true);
-    } else {
-      this.formIsInvalid.set(false);
-    }
-
-    if(!this.password_confirm()){
       this.formIsInvalid.set(true);
     } else {
       this.formIsInvalid.set(false);

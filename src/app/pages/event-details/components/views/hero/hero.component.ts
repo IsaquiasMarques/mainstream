@@ -9,10 +9,10 @@ import { Event } from '@core/models/event.model';
       <div class="limited-container flex flex-col gap-[50px] lg:flex-row lg:justify-between lg:items-center">
         @if (!this.isLoading()) {
           <div class="content w-full flex flex-col gap-7 text-(color:--secondary) lg:max-w-[509px]">
-            <h1 class=" !font-[Unigeo] font-semibold text-[45px] xl:text-[3.5rem] xl-1920:text-6xl leading-[120%]">
+            <h1 data-aos="fade-right" data-aos-delay="0" class=" !font-[Unigeo] font-semibold text-[45px] xl:text-[3.5rem] xl-1920:text-6xl leading-[120%]">
               {{ this.event()[0].title }}
             </h1>
-            <div class="details-box flex flex-col gap-7 p-7 rounded-lg border border-[#FFC3C3] lg:max-w-[374px]">
+            <div data-aos="fade-right" data-aos-delay="200" class="details-box flex flex-col gap-7 p-7 rounded-lg border border-[#FFC3C3] lg:max-w-[374px]">
               <h1 class=" text-(color:--secondary) font-semibold text-lg leading-[120%] tracking-[-2%]">Detalhes do Evento</h1>
               <div class="details-content flex flex-col gap-3">
                   <div class="date flex gap-2 justify-start items-center">
@@ -37,7 +37,7 @@ import { Event } from '@core/models/event.model';
               </div>
             </div>
           </div>
-          <div class="image lg:w-[446px] h-[420px] lg:h-[500px] rounded-4xl overflow-hidden">
+          <div data-aos="fade-left" data-aos-delay="100" class="image lg:w-[446px] h-[420px] lg:h-[500px] rounded-4xl overflow-hidden">
               <img [src]="this.event()[0].image" class="w-full h-full object-cover object-center" alt="">
           </div>
         } @else {

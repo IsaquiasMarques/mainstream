@@ -75,5 +75,10 @@ export const routes: Routes = [
         path: 'contact-us',
         loadComponent: () => import('./pages/contact-us/components/container/contact-us.component').then(component => component.ContactUsComponent),
         title: 'Entre em contacto connosco'
+    },
+    {
+        path: '**',
+        redirectTo: '/',
+        pathMatch: 'full'
     }
 ];

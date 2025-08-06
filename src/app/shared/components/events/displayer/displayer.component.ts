@@ -17,6 +17,7 @@ import { EventTemplatePlaceholderComponent } from '@shared/templates/event/place
                 @if(!this.isLoading()){
                   @for (event of events(); track $index) {
                       <app-event
+                      data-aos="fade-up" [attr.data-aos-delay]="$index * 200"
                       class="w-full md:w-[355px] lg:w-[370px] xl-1230:!w-[calc(calc(100%/3)-20px)]"
                       [event]="event"
                       [isLoading]="this.isLoading()"
@@ -37,7 +38,8 @@ import { EventTemplatePlaceholderComponent } from '@shared/templates/event/place
               } @else {
                 @for (event of events(); track $index) {
                     <app-event
-                    class="w-full appear-softly-from-bottom md:w-[355px] lg:w-[370px] xl-1230:!w-[calc(calc(100%/3)-20px)]"
+                    data-aos="fade-up" [attr.data-aos-delay]="$index * 200"
+                    class="w-full appear-softly-from-bott md:w-[355px] lg:w-[370px] xl-1230:!w-[calc(calc(100%/3)-20px)]"
                     [event]="event"
                     [isLoading]="this.isLoading()"
                     />
@@ -49,8 +51,8 @@ import { EventTemplatePlaceholderComponent } from '@shared/templates/event/place
               }
           </div>
           @if (button().visible && (!this.isLoading() && events().length >= limit())) {
-            <div class="see-more flex justify-center">
-                <button type="button" (click)="this.onButtonClick()" class="text-white w-full xl:w-fit cursor-pointer font-medium rounded-lg !font-['Montserrat'] text-sm px-7 py-6 bg-(color:--primary)">
+            <div data-aos="fade-up" class="see-more flex justify-center">
+                <button type="button" (click)="this.onButtonClick()" class="duration-[.3s] text-white hover:text-(color:--primary) bg-(color:--primary) hover:bg-white hover:border-1 hover:border-(color:--primary) w-full xl:w-fit cursor-pointer font-medium rounded-lg !font-['Montserrat'] text-sm px-7 py-6">
                     {{ button().label }}
                 </button>
             </div>
