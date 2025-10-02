@@ -31,6 +31,6 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       window.scrollBy(0, 1);
       window.scrollBy(0, -1);
-    }, 100);
+    }, 200);
   }
 }
