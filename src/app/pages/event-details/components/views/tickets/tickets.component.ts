@@ -5,7 +5,7 @@ import { Event } from '@core/models/event.model';
 import { Ticket } from '@core/models/ticket.model';
 import { CheckoutService } from '@libraries/checkout/checkout.service';
 import { AoMoneyFormatPipe } from '@shared/pipes/ao-money-format.pipe';
-import { CustomNumberInputComponent } from '@shared/ui-elements/custom-number-input/custom-number-input.component';
+import { CustomNumberInputComponent } from '@shared/ui/custom-number-input/custom-number-input.component';
 @Component({
   selector: 'app-tickets',
   imports: [FormsModule, CustomNumberInputComponent],

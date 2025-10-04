@@ -131,4 +131,35 @@
             </div>
         </div>
     </div>
+
+    
+    <ducki-dialog [openTrigger]="this.openDialog()" (closed)="this.openDialog.set(false)">
+        <ng-template #panel let-close="close">
+            <div class="dialog-panel w-full max-w-[340px] flex flex-col gap-6 py-16">
+                <div class="dialog-header flex justify-center items-center">
+                    <svg width="56" height="55" viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_598_6209)">
+                        <path d="M28 55C43.1878 55 55.5 42.6878 55.5 27.5C55.5 12.3122 43.1878 0 28 0C12.8122 0 0.5 12.3122 0.5 27.5C0.5 42.6878 12.8122 55 28 55Z" fill="#00BA00"/>
+                        <path d="M23.0999 38.0627C22.8936 38.0627 22.6873 38.0112 22.5325 37.8564L14.1766 29.4489C13.8671 29.1394 13.8671 28.6752 14.1766 28.3657C14.486 28.0562 14.9503 28.0562 15.2597 28.3657L23.0999 36.2059L40.7403 18.5655C41.0498 18.256 41.514 18.256 41.8235 18.5655C42.1329 18.875 42.1329 19.3392 41.8235 19.6487L23.6673 37.8564C23.5126 38.0112 23.3062 38.0627 23.0999 38.0627Z" fill="white"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_598_6209">
+                        <rect width="55" height="55" fill="white" transform="translate(0.5)"/>
+                        </clipPath>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="dialog-body flex flex-col gap-3">
+                    <h1 class="!font-[Unigeo] font-semibold text-2xl text-center">Conta criada com êxito.</h1>
+                    <p class="!font-[Montserrat] text-sm text-center">A sua conta foi criada com êxito. Clique no botão "Acessar conta" no cabeçalho para entrar.</p>
+                </div>
+                <div class="dialog-footer flex justify-end items-center">
+                    <button (click)="close()"
+                    class="bg-(color:--primary) cursor-pointer text-white w-full py-4 text-center flex justify-center items-center !font-['Montserrat'] text-sm font-medium rounded-lg">
+                        Fechar
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </ducki-dialog>
 </div>

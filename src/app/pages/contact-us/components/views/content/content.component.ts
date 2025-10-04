@@ -6,10 +6,11 @@ import { ContactUsApiService } from '@core/api/contact-us.api.service';
 import { ContactUsContract } from '@core/contracts/contact-us.contract';
 import { AboutUs } from '@core/models/about-us.model';
 import { PopUp, PopupStatus } from '@libraries/popup/popup.service';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-content',
-  imports: [ ReactiveFormsModule, NgClass ],
+  imports: [ ReactiveFormsModule, NgClass, DialogComponent ],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css'
 })
@@ -19,6 +20,7 @@ export class ContentComponent implements OnInit {
 
   aboutus = input.required<AboutUs | null>();
   isLoading = input.required<boolean>();
+  openDialog = signal<boolean>(false);
 
   contactUsFormGroup!: FormGroup;
   formIsInvalid = signal(false);
@@ -63,7 +65,8 @@ export class ContentComponent implements OnInit {
     this.contactClient.contact(message).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.Ok){
-          this.popup.add("A sua mensagem foi enviada com êxito. Entraremos em contacto em breve.", PopupStatus.SUCCESS);
+          // this.popup.add("A sua mensagem foi enviada com êxito. Entraremos em contacto em breve.", PopupStatus.SUCCESS);
+          this.openDialog.set(true);
           this.isSendingMessage.set(false)
           this.contactUsFormGroup.reset();
         }

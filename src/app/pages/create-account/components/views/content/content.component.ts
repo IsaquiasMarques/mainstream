@@ -5,10 +5,11 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { AdvertiserApiService } from '@core/api/advertiser.api.service';
 import { CreateAdvertiserContract } from '@core/contracts/create-advertiser.contract';
 import { PopUp, PopupStatus } from '@libraries/popup/popup.service';
+import { DialogComponent } from '@shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'app-content',
-  imports: [ ReactiveFormsModule, NgClass ],
+  imports: [ ReactiveFormsModule, NgClass, DialogComponent ],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css'
 })
@@ -20,6 +21,8 @@ export class ContentComponent implements OnInit {
   formIsInvalid = signal(false);
   isCreatingAdvertiser = signal(false);
   popup = inject(PopUp);
+  
+  openDialog = signal<boolean>(false);
 
   passwordCriteria = {
     minLength: false,
@@ -92,7 +95,8 @@ export class ContentComponent implements OnInit {
     this.advertiserClient.create(advertiser).subscribe({
       next: (response) => {
         if(response.status === HttpStatusCode.Created)
-          this.popup.add("Conta de anunciante criada com êxito.", PopupStatus.SUCCESS);
+          // this.popup.add("Conta de anunciante criada com êxito.", PopupStatus.SUCCESS);
+          this.openDialog.set(true);
           this.isCreatingAdvertiser.set(false)
           this.becomeAdvertiserFormGroup.reset();
       },

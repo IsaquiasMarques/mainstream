@@ -94,6 +94,32 @@
                             }
                         </div>
                         <div class="receive-method flex flex-col gap-2">
+                            <label for="" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Como deseja fazer o pagamento?</label>
+                            <div class="methods flex gap-4 justify-start items-stretch">
+                                <button id="paypay_app" (click)="changePaymentMethod(paymentMethodsEnum.PAYPAY_APP)" type="button" [class.selected]="this.selectedPaymentMethod() == this.paymentMethodsEnum.PAYPAY_APP" class="whatsapp cursor-pointer flex gap-5 justify-between items-center border-[0.5px] border-black rounded-[10px] py-[10px] px-3 w-fit">
+                                    <div class="option-name flex gap-2 justify-start items-center">
+                                        <img src="/assets/static/paypay.png" class="rounded" width="30" alt="">
+                                        <span class="!font-['Montserrat'] text-sm leading-[120%] -tracking-[2%]">Aplicativo da PayPay</span>
+                                    </div>
+                                    <!-- <div class="check-circle">
+                                        <div class="circle w-4 h-4 border-[0.5px] duration-[.2s] border-black rounded-full"></div>
+                                    </div> -->
+                                </button>
+                                <button id="reference" (click)="changePaymentMethod(paymentMethodsEnum.REFERENCE)" type="button" [class.selected]="this.selectedPaymentMethod() == this.paymentMethodsEnum.REFERENCE" class="email cursor-pointer flex gap-5 justify-between items-center border-[0.5px] border-black rounded-[10px] py-[10px] px-3 w-fit">
+                                    <div class="option-name flex gap-2 justify-start items-center">
+                                        <!-- <svg width="29" height="22" viewBox="0 0 29 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M27.3932 3.99078C27.8664 3.66459 28.1503 3.11574 28.1503 2.52787L28.1503 2.52641C28.1503 1.48713 27.3358 0.644612 26.3311 0.644612L2.66879 0.644609C1.66415 0.644609 0.84966 1.48713 0.84966 2.52641L0.84966 2.52734L0.84966 2.52787C0.84966 3.11574 1.13354 3.66459 1.60678 3.99078C3.91596 5.58365 10.874 10.382 13.4903 12.1866C14.1018 12.6084 14.8981 12.6084 15.5096 12.1866C18.126 10.382 25.084 5.58365 27.3932 3.99078Z" stroke="#F20530" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M28.1502 2.52737L28.1502 19.4726C28.1502 19.972 27.9586 20.4507 27.6169 20.8038C27.2757 21.1573 26.8129 21.3554 26.3302 21.3554L2.66957 21.3554C2.18682 21.3554 1.72407 21.1572 1.38281 20.8038C1.0411 20.4507 0.849539 19.972 0.849539 19.4726L0.84954 2.52737" stroke="#F20530" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg> -->
+                                        <span class="!font-['Montserrat'] text-sm leading-[120%] -tracking-[2%]">Por Referência</span>
+                                    </div>
+                                    <!-- <div class="check-circle">
+                                        <div class="circle w-4 h-4 border-[0.5px] duration-[.2s] border-black rounded-full"></div>
+                                    </div> -->
+                                </button>
+                            </div>
+                        </div>
+                        <div class="receive-method flex flex-col gap-2">
                             <label for="" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Onde desejas ser atendido?</label>
                             <div class="options flex flex-wrap gap-4 justify-between items-stretch">
                                 <!-- <button id="whatsapp" (click)="changeOption(receiveOptionsEnum.WHATSAPP)" type="button" [class.selected]="selectedOption() == this.receiveOptionsEnum.WHATSAPP" class="whatsapp cursor-pointer flex gap-7 justify-between items-center border-[0.5px] border-black rounded-[10px] py-[10px] px-3 w-fit">

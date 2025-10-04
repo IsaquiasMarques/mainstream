@@ -1,4 +1,17 @@
+.options button.selected{
+    border-color: var(--primary);
+    color: var(--primary);
+}
 .options button.selected .check-circle .circle{
     background-color: var(--primary);
     border-color: var(--primary);
+}
+
+.methods button.selected{
+    border-color: #574EF0;
+    color: #574EF0;
+}
+.methods button.selected .check-circle .circle{
+    background-color: #574EF0;
+    border-color: #574EF0;
 }

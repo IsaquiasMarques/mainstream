@@ -1,3 +1,4 @@
+import { PaymentMethod } from "@core/enums/payment-method.enum";
 import { ReceiveTicicketDetailsOPtions } from "@core/enums/receive-ticket-details-options.enum";
 
 export interface TicketPurchaser{
@@ -5,5 +6,6 @@ export interface TicketPurchaser{
     email: string,
     address: string,
     contact: string,
-    option: ReceiveTicicketDetailsOPtions
+    option: ReceiveTicicketDetailsOPtions,
+    payment_method: PaymentMethod
 }

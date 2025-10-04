@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckoutContract } from '@core/contracts/checkout.contract';
 import { AoMoneyFormatPipe } from '@shared/pipes/ao-money-format.pipe';
-import { CustomNumberInputComponent } from "@shared/ui-elements/custom-number-input/custom-number-input.component";
+import { CustomNumberInputComponent } from "@shared/ui/custom-number-input/custom-number-input.component";
 
 @Component({
   selector: 'app-ticket',

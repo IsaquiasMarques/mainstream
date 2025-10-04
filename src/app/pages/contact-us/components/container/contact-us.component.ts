@@ -12,7 +12,7 @@ import { AboutUs } from '@core/models/about-us.model';
 })
 export class ContactUsComponent implements OnInit {
 
- aboutusFacade = inject(AboutFacade);
+  aboutusFacade = inject(AboutFacade);
   aboutus: WritableSignal<AboutUs | null> = signal(null);
   isLoading = signal<boolean>(true);
 

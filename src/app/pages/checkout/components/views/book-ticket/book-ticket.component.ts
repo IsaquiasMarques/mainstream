@@ -1,6 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component, input, OnInit, output, signal, WritableSignal } from '@angular/core';
+import { Component, input, OnChanges, OnInit, output, signal, SimpleChanges, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { PaymentMethod } from '@core/enums/payment-method.enum';
 import { ReceiveTicicketDetailsOPtions } from '@core/enums/receive-ticket-details-options.enum';
 import { TicketPurchaser } from '@core/models/purchaser.model';
 
@@ -10,10 +11,11 @@ import { TicketPurchaser } from '@core/models/purchaser.model';
   templateUrl: './book-ticket.component.html',
   styleUrl: './book-ticket.component.css'
 })
-export class BookTicketComponent implements OnInit {
+export class BookTicketComponent implements OnInit, OnChanges {
   receiveOptionsEnum = ReceiveTicicketDetailsOPtions;
+  paymentMethodsEnum = PaymentMethod;
   selectedOption: WritableSignal<ReceiveTicicketDetailsOPtions> = signal(this.receiveOptionsEnum.EMAIL);
-
+  selectedPaymentMethod: WritableSignal<PaymentMethod> = signal(this.paymentMethodsEnum.PAYPAY_APP);
   purchaseTicketFormGroup!: FormGroup;
 
   formIsInvalid = signal<boolean>(false);
@@ -31,6 +33,16 @@ export class BookTicketComponent implements OnInit {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.purchaseCompleted()){
+      this.purchaseTicketFormGroup.reset();
+    }
+  }
+
+  changePaymentMethod(method: PaymentMethod): void{
+    this.selectedPaymentMethod.set(method);
+  }
+
   changeOption(option: ReceiveTicicketDetailsOPtions){
     this.selectedOption.set(option);
   }
@@ -45,7 +57,8 @@ export class BookTicketComponent implements OnInit {
       email: this.purchaseTicketFormGroup.get('email')?.value,
       address: this.purchaseTicketFormGroup.get('address')?.value,
       contact: this.purchaseTicketFormGroup.get('contact')?.value,
-      option: this.selectedOption()
+      option: this.selectedOption(),
+      payment_method: this.selectedPaymentMethod()
     }
     this.purchaseFormDateEventEmitter.emit(ticketPurchaser);
   }
