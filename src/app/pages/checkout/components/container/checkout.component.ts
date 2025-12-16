@@ -45,6 +45,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   purchaseTicket(ticketPurchaser: TicketPurchaser): void{
+
     this.isPurchasingTicket.set(true);
     this.purchaseService.purchaseTicket(ticketPurchaser, this.checkouts()[0]).subscribe({
       next: (response) => {

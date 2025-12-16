@@ -40,6 +40,7 @@ export class ContentComponent implements OnInit {
     }, { validators: this.passwordsMatchValidator });
 
     this.becomeAdvertiserFormGroup.get('password')?.valueChanges.subscribe((password: any) => {
+        if(!password) return;
         this.passwordCriteria = {
           minLength: password.length >= 8,
           hasLetters: /[a-zA-Z]/.test(password),

@@ -7,5 +7,6 @@ export interface TicketPurchaser{
     address: string,
     contact: string,
     option: ReceiveTicicketDetailsOPtions,
-    payment_method: PaymentMethod
+    payment_method: PaymentMethod,
+    payment_proof?: File
 }

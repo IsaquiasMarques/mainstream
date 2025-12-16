@@ -44,11 +44,11 @@
                         Cria a sua conta para vender connoscos
                     </h1> -->
                     <p class="text-(color:--secondary)/60 text-sm leading-[120%] -tracking-[2%] !font-['Montserrat']">
-                        Insira o seu e-mail ou Whatsapp para o próximo passo da compra do Bilhete
+                        Insira o seu e-mail para o próximo passo da compra do Bilhete
                     </p>
                 </div>
                 <div class="form-body mt-4">
-                    <form [formGroup]="this.purchaseTicketFormGroup" (submit)="submit()" class="flex flex-col gap-4">
+                    <form [formGroup]="this.purchaseTicketFormGroup" enctype="multipart/form-data" (submit)="submit()" class="flex flex-col gap-4">
                         <div class="input flex flex-col gap-2">
                             <label for="name" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Nome</label>
                             <input
@@ -118,6 +118,56 @@
                                     </div> -->
                                 </button>
                             </div>
+                        </div>
+                        <div class="reference-details flex flex-col gap-2">
+                            @if(selectedPaymentMethod() === paymentMethodsEnum.REFERENCE){
+                                <label for="" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Informações de pagamento</label>
+                                <div class="inputs w-full flex flex-wrap gap-4 justify-between items-stretch">
+                                    <div class="input w-full flex flex-col gap-2">
+                                        <label for="reference-entity" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)"></label>
+                                        <div id="reference-entity" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg text-xs flex justify-between items-center">
+                                            <p class="">Entidade: {{ 003435 }}</p>
+                                            <app-copy-to-clipboard [target]="'003435'">
+                                                <ng-template #buttonTemplate let-copy="copy">
+                                                    <button (click)="copy()" type="button" class="px-1 py-0.5 bg-(--primary) cursor-pointer text-white rounded border-none">Copiar</button>
+                                                </ng-template>
+                                            </app-copy-to-clipboard>
+                                        </div>
+                                    </div>
+                                    <div class="input w-full flex flex-col gap-2">
+                                        <label for="reference-number" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)"></label>
+                                        <div id="reference-number" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg text-xs flex justify-between items-center">
+                                            <p class="">Referência {{ 9923234932 }}</p>
+                                            <app-copy-to-clipboard [target]="'9923234932'">
+                                                <ng-template #buttonTemplate let-copy="copy">
+                                                    <button (click)="copy()" type="button" class="px-1 py-0.5 bg-(--primary) cursor-pointer text-white rounded border-none">Copiar</button>
+                                                </ng-template>
+                                            </app-copy-to-clipboard>
+                                        </div>
+                                    </div>
+
+                                    <div class="input w-full flex flex-col gap-2">
+                                        <label for="proof-of-transfer" class="font-medium !font-['Montserrat'] text-xs text-(color:--secondary)">Comprovativo de Pagamento (PDF)</label>
+                                        <input
+                                        #proofFileInput
+                                        [ngClass]="{
+                                            'is-invalid': this.purchaseTicketFormGroup.get('proof-of-transfer')?.invalid && this.purchaseTicketFormGroup.get('proof-of-transfer')?.touched
+                                        }"
+                                        type="file" accept=".pdf" (change)="onProofFileSelected($event)" id="proof-of-transfer" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+
+                                        @if (this.purchaseTicketFormGroup.get('proof-of-transfer')?.invalid && (this.purchaseTicketFormGroup.get('proof-of-transfer')?.touched || this.formIsInvalid())) {
+                                            <small class="text-red-500">Verifique os dados deste campo</small>
+                                        }
+                                        @if (purchaseTicketFormGroup.get('proof-of-transfer')?.errors?.['invalidMimeType']) {
+                                            <small class="text-red-500">O ficheiro deve ser um PDF válido.</small>
+                                        }
+                                        @if (purchaseTicketFormGroup.get('proof-of-transfer')?.errors?.['oversized']) {
+                                            <small class="text-red-500">O tamanho do arquivo deve ser de até {{ maxSizeLimit | sizeConverter: 'KB' : 'MB' }}</small>
+                                        }
+                                    </div>
+                                    
+                                </div>
+                            }
                         </div>
                         <div class="receive-method flex flex-col gap-2">
                             <label for="" class="font-medium !font-['Montserrat'] text-sm text-(color:--secondary)">Onde desejas ser atendido?</label>
