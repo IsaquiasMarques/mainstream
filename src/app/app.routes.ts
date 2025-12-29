@@ -57,6 +57,21 @@ export const routes: Routes = [
         ],
     },
     {
+        path: 'lives',
+        children: [
+            {
+                path: 'access',
+                title: 'Bem-vindo à Experiência ao Vivo',
+                loadComponent: () => import('./pages/lives/views/live-access.component').then(component => component.LiveAccessComponent)
+            },
+            {
+                path: 'watch',
+                title: 'Sala de eventos ao Vivo',
+                loadComponent: () => import('./pages/lives/views/watch.component').then(component => component.WatchComponent)
+            }
+        ]
+    },
+    {
         path: 'checkout',
         loadComponent: () => import('./pages/checkout/components/container/checkout.component').then(component => component.CheckoutComponent),
         title: 'Finalize a sua compra',

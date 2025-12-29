@@ -1,0 +1,1 @@
+export type AgoraUid = { agora_uid: string }

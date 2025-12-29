@@ -1,0 +1,303 @@
+import { NgClass } from '@angular/common';
+import { HttpStatusCode } from '@angular/common/http';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { IdentificateGuest, JoinLiveEvent, PaidEventsForIdentifiedGuests } from '@core/contracts/live.contract';
+import { LiveAccessFacade } from '@core/facades/live.facade';
+import { PopUp, PopupStatus } from '@libraries/popup/popup.service';
+import { DialogComponent } from "@shared/components/dialog/dialog.component";
+import { liveAccessProviders } from './live-access.providers';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { AgoraIOService } from '@core/services/agora.service';
+import { StreamService } from '@core/services/stream.service';
+
+@Component({
+  selector: 'app-live-access',
+  imports: [DialogComponent, ReactiveFormsModule, NgClass],
+  providers: [ ...liveAccessProviders() ],
+  template: `
+    <div class="section-content">
+      <div class="limited-container py-16 flex flex-col-reverse gap-10 xl:gap-0 xl:flex-row justify-between items-stretch">
+          <div class="images-container w-auto flex flex-col gap-10">
+            <img src="/assets/images/live/access.jpg" class="w-full h-full object-contain object-center" alt="">
+              <!-- <h1 class="text-(color:--secondary) !font-['Unigeo'] text-2xl leading-[120%] font-semibold">
+                  Saiba como vender na nossa plataforma
+              </h1>
+              <div class="images flex flex-wrap gap-3 justify-start items-stretch">
+                  <div data-aos="fade-up" data-aos-delay="0" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                      <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
+                        1º Passo
+                      </h1>
+                      <div class="details-content flex flex-col gap-3">
+                          <p class="!font-['Montserrat'] leading-[120%] text-(color:--secondary) tracking-[-2%]">
+                              O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
+                          </p>
+                      </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-delay="100" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                      <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
+                        2º Passo
+                      </h1>
+                      <div class="details-content flex flex-col gap-3">
+                          <p class="!font-['Montserrat'] leading-[120%] text-(color:--secondary) tracking-[-2%]">
+                              O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
+                          </p>
+                      </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-delay="0" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                      <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
+                        3º Passo
+                      </h1>
+                      <div class="details-content flex flex-col gap-3">
+                          <p class="!font-['Montserrat'] leading-[120%] text-(color:--secondary) tracking-[-2%]">
+                              O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
+                          </p>
+                      </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-delay="100" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                      <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
+                        4º Passo
+                      </h1>
+                      <div class="details-content flex flex-col gap-3">
+                          <p class="!font-['Montserrat'] leading-[120%] text-(color:--secondary) tracking-[-2%]">
+                              O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
+                          </p>
+                      </div>
+                  </div>
+                  <div data-aos="fade-up" data-aos-delay="0" class="box w-full lg:w-[250px] flex flex-col gap-4 p-7 rounded-lg border-[0.5px] border-(color:--secondary)">
+                      <h1 class="!font-[Montserrat] font-bold text-lg flex gap-3 items-center text-(color:--primary) leading-[120%] -tracking-[2%]">
+                        5º Passo
+                      </h1>
+                      <div class="details-content flex flex-col gap-3">
+                          <p class="!font-['Montserrat'] leading-[120%] text-(color:--secondary) tracking-[-2%]">
+                              O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão.
+                          </p>
+                      </div>
+                  </div>
+              </div> -->
+          </div>
+          <div class="contact-form w-full xl:w-[470px]">
+              <div data-aos="fade-left" class="form-container p-7 rounded-lg border-[0.5px] border-(color:--secondary) lg:sticky lg:top-[110px]">
+                  <div class="form-header flex flex-col gap-4">
+                      <h1 class="text-(color:--secondary) font-semibold text-2xl leading-[120%] !font-['Unigeo']">
+                          Acesso Exclusivo à Live
+                      </h1>
+                      <p class="text-(color:--secondary)/60 text-sm leading-[120%] -tracking-[2%] !font-['Montserrat']">
+                          Coloque os seus dados e selecione qual o evento pretende participar
+                      </p>
+                  </div>
+                  <div class="form-body mt-4">
+                      <form [formGroup]="this.requestAccessToLiveFormGroup" (ngSubmit)="submit()" class="flex flex-col gap-4">
+                          <div class="input flex flex-col gap-2">
+                              <label for="email" class="font-medium duration-[.6s] !font-['Montserrat'] text-sm text-(color:--secondary)">Email</label>
+                              <input
+                              [ngClass]="{
+                                  'is-invalid': this.requestAccessToLiveFormGroup.get('email')?.invalid && this.requestAccessToLiveFormGroup.get('email')?.touched
+                              }"
+                              type="email" formControlName="email" id="email" placeholder="Email" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                              @if (this.requestAccessToLiveFormGroup.get('email')?.invalid && (this.requestAccessToLiveFormGroup.get('email')?.touched || this.formIsInvalid())) {
+                                  <small class="text-red-500">Verifique os dados deste campo</small>
+                              }
+                          </div>
+                          @if(eventsPaied().length > 0){
+                            <div class="input flex flex-col gap-2">
+                                <label for="email" class="font-medium duration-[.6s] !font-['Montserrat'] text-sm text-(color:--secondary)">Seleccione o evento</label>
+                                <select name="event" formControlName="event" id="event" class="w-full px-3 py-4 focus:outline-none border-[0.5px] border-(color:--secondary) rounded-lg placeholder:text-(color:--secondary)/50 text-xs placeholder:text-xs">
+                                  <option value="">Seleccione o evento que quer participar</option>
+                                  @for (event of eventsPaied(); track $index) {
+                                    <option value="{{ event.uuid }}">{{ event.title }}</option>
+                                  }
+                                </select>
+                                @if (this.requestAccessToLiveFormGroup.get('event')?.invalid && (this.requestAccessToLiveFormGroup.get('event')?.touched || this.formIsInvalid())) {
+                                    <small class="text-red-500">Verifique os dados deste campo</small>
+                                }
+                            </div>
+                          }
+                          <div class="submit w-full mt-7">
+                              <button type="submit" class="bg-(color:--primary) cursor-pointer text-white w-full py-4 text-center flex justify-center items-center !font-['Montserrat'] text-sm font-medium rounded-lg">
+                                  @if (this.isLoading()) {
+                                      <img class="w-5 h-5" src="assets/static/loader.svg" alt="">
+                                  } @else {
+                                      Enviar
+                                  }
+                              </button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <ducki-dialog [openTrigger]="this.openDialog()" (closed)="this.openDialog.set(false)">
+          <ng-template #panel let-close="close">
+              <div class="dialog-panel w-full max-w-[340px] flex flex-col gap-6 px-4 py-16">
+                  <div class="dialog-header flex justify-center items-center">
+                      <svg width="56" height="55" viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_598_6209)">
+                          <path d="M28 55C43.1878 55 55.5 42.6878 55.5 27.5C55.5 12.3122 43.1878 0 28 0C12.8122 0 0.5 12.3122 0.5 27.5C0.5 42.6878 12.8122 55 28 55Z" fill="#00BA00"/>
+                          <path d="M23.0999 38.0627C22.8936 38.0627 22.6873 38.0112 22.5325 37.8564L14.1766 29.4489C13.8671 29.1394 13.8671 28.6752 14.1766 28.3657C14.486 28.0562 14.9503 28.0562 15.2597 28.3657L23.0999 36.2059L40.7403 18.5655C41.0498 18.256 41.514 18.256 41.8235 18.5655C42.1329 18.875 42.1329 19.3392 41.8235 19.6487L23.6673 37.8564C23.5126 38.0112 23.3062 38.0627 23.0999 38.0627Z" fill="white"/>
+                          </g>
+                          <defs>
+                          <clipPath id="clip0_598_6209">
+                          <rect width="55" height="55" fill="white" transform="translate(0.5)"/>
+                          </clipPath>
+                          </defs>
+                      </svg>
+                  </div>
+                  <div class="dialog-body flex flex-col gap-3">
+                      <h1 class="!font-[Unigeo] font-semibold text-2xl text-center">Conta criada com êxito.</h1>
+                      <p class="!font-[Montserrat] text-sm text-center">A sua conta foi criada com êxito. Clique no botão "Acessar conta" no cabeçalho para entrar.</p>
+                  </div>
+                  <div class="dialog-footer flex justify-end items-center">
+                      <button (click)="close()"
+                      class="bg-(color:--primary) cursor-pointer text-white w-full py-4 text-center flex justify-center items-center !font-['Montserrat'] text-sm font-medium rounded-lg">
+                          Fechar
+                      </button>
+                  </div>
+              </div>
+          </ng-template>
+      </ducki-dialog>
+  </div>
+  `,
+  styles: ``
+})
+export class LiveAccessComponent implements OnInit {
+
+  private liveAccessFacade = inject(LiveAccessFacade);
+  private router = inject(Router);
+  private agoraIoService = inject(AgoraIOService);
+  private streamService = inject(StreamService);
+
+  requestAccessToLiveFormGroup!: FormGroup;
+  formIsInvalid = signal(false);
+  isLoading = signal(false);
+  popup = inject(PopUp);
+  eventsPaied = signal<PaidEventsForIdentifiedGuests[]>([]);
+  
+  openDialog = signal<boolean>(false);
+
+  ngOnInit(): void {
+    this.requestAccessToLiveFormGroup = new FormGroup({
+      'email': new FormControl('', [ Validators.required, Validators.email ]),
+      'event': new FormControl('', [])
+    });
+
+    this.requestAccessToLiveFormGroup.get('event')?.valueChanges.subscribe(value => {
+      
+    })
+  }
+
+  private validate(){
+    if(this.requestAccessToLiveFormGroup.invalid){
+      this.formIsInvalid.set(true);
+    } else {
+      this.formIsInvalid.set(false);
+    }
+  }
+
+  onSelectEventChange($event: Event): void{
+    console.log($event);
+  }
+
+  private requireEventsFormControl(): void{
+    this.requestAccessToLiveFormGroup.get('event')?.addValidators([ Validators.required ])
+  }
+
+  submit(){
+
+    this.validate();
+    if(this.formIsInvalid()){
+      return;
+    }
+
+    this.isLoading.set(true);
+    
+    if(!(this.eventsPaied().length > 0)){
+      this.getGuestEvents();
+      return;
+    }
+
+    this.joinToEvent();
+
+  }
+
+  private getGuestEvents(): void{
+    
+    let guest: IdentificateGuest = {
+      email: this.requestAccessToLiveFormGroup.get('email')?.value,
+    };
+
+    this.subscriber(
+      guest,
+      (response: any) => {
+        if(response.events && response.events.length > 0){
+          this.eventsPaied.set(response.events);
+          this.requireEventsFormControl();
+          this.isLoading.set(false)
+          return;
+        }
+        
+        this.popup.add("Nenhum evento disponível no momento", PopupStatus.ERROR)
+        this.isLoading.set(false)
+      }
+    );
+
+  }
+
+  private joinToEvent(): void{
+    
+    let join: JoinLiveEvent = {
+      email: this.requestAccessToLiveFormGroup.get('email')?.value,
+      event: this.requestAccessToLiveFormGroup.get('event')?.value,
+      previousUid: null
+    };
+
+    this.subscriber(
+      join,
+      (response) => {
+        this.agoraIoService.channelName = response.streaming.channel;
+        this.agoraIoService.token = response.streaming.token;
+        this.agoraIoService.agoraUId = response.streaming.uid;
+
+        this.streamService.eventInLive = response.event;
+
+        this.isLoading.set(false)
+
+        this.router.navigate(['/lives/watch']);
+
+      }
+    );
+  }
+
+  private subscriber(data: IdentificateGuest | JoinLiveEvent, callback: (response: any) => void): void{
+
+    let caller: Observable<any> = new Observable();
+    if(!(this.eventsPaied().length > 0)){
+      caller = this.liveAccessFacade.getEvents(data as IdentificateGuest);
+    } else{
+      caller = this.liveAccessFacade.join(data as JoinLiveEvent);
+    }
+
+    caller.subscribe({
+      next: callback,
+      error: (error) => {
+        console.log(error)
+        if(error.status === HttpStatusCode.UnprocessableEntity){
+          for (const key in error.error.errors) {
+            if (error.error.errors[key] && Array.isArray(error.error.errors[key])) {
+              this.popup.add(error.error.errors[key][0], PopupStatus.ERROR);
+            }
+          }
+        }
+        if(error.status === HttpStatusCode.Unauthorized){
+          this.popup.add(error.error.message, PopupStatus.ERROR)
+        }
+        if(error.status === HttpStatusCode.Forbidden){
+          this.popup.add(error.error.message, PopupStatus.ERROR)
+        }
+        this.isLoading.set(false)
+      }
+    });
+  }
+}

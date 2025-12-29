@@ -31,5 +31,13 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "references": [
+    {
+      "path": "./projects/seller-backoffice/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/seller-backoffice/tsconfig.spec.json"
+    }
+  ]
 }
