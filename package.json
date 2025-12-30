@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:mainstream": "node dist/mainstream/server/server.mjs",
-    "prebuild": "node generate-env.js && node generate-env-seller.js"
+    "prebuild": "node generate-env.js && node generate-env-seller.js && ng build --project seller-backoffice"
   },
   "private": true,
   "dependencies": {
